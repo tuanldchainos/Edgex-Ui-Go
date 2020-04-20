@@ -1,6 +1,8 @@
 package main
 
 import (
+	internal "Edgex-Ui-Go/internal"
+	"Edgex-Ui-Go/internal/configs"
 	"Edgex-Ui-Go/internal/pkg/usage"
 	"flag"
 	"log"
@@ -26,10 +28,11 @@ func main() {
 	// if !ok {
 	// 	mm.DBConnect()
 	// }
-	mm.DBConnect()
+	//mm.DBConnect()
 	r := internal.InitRestRoutes()
 
 	server := &http.Server{
+		Handler:      r,
 		Addr:         ":" + strconv.FormatInt(configs.ServerConf.Port, 10),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,

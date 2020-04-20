@@ -1,0 +1,42 @@
+[Service]
+Host = "localhost"
+Port = 5555
+Labels = []
+OpenMsg = "edgeX ui started"
+StaticResourcesPath = "./static"
+
+#Using an default memory db automatically if not configed here.
+[Database]
+Host = "localhost"
+Name = "edgex-ui-go"
+Port = 27017
+Username = "su"
+Password = "su"
+  [Database.Scheme]
+  User = "user"
+  Gateway = "gateway"
+
+[StaticProxy]
+CoreDataHost     = "localhost"
+CoreDataPort     = "48080"
+CoreMetadataHost = "localhost"
+CoreMetadataPort = "48081"
+CoreCommandHost  = "localhost"
+CoreCommandPort  = "48082"
+CoreExportHost   = "localhost"
+CoreExportPort   = "48071"
+RuleEngineHost   = "localhost"
+RuleEnginePort   = "48075"
+SupportLoggingHost   = "localhost"
+SupportLoggingPort   = "48061"
+SupportNotificationHost   = "localhost"
+SupportNotificationPort   = "48060"
+SupportSchedulerHost   = "localhost"
+SupportSchedulerPort   = "48085"
+
+[Registry]
+Host = "localhost"
+Port = 8500
+Type = "consul"
+ConfigRegistryStem="edgex/appservices/"
+ServiceVersion="1.0"

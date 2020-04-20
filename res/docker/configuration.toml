@@ -1,0 +1,42 @@
+[Service]
+Host = "edgex-ui-go"
+Port = 5555
+Labels = []
+OpenMsg = "edgeX ui started"
+StaticResourcesPath = "./static"
+
+#Using an default memory db if not configed.
+[Database]
+Host = "edgex-mongo"
+Name = "edgex-ui-go"
+Port = 27017
+Username = "su"
+Password = "su"
+  [Database.Scheme]
+  User = "user"
+  Gateway = "gateway"
+
+[StaticProxy]
+CoreDataHost     = "edgex-core-data"
+CoreDataPort     = "48080"
+CoreMetadataHost = "edgex-core-metadata"
+CoreMetadataPort = "48081"
+CoreCommandHost  = "edgex-core-command"
+CoreCommandPort  = "48082"
+CoreExportHost   = "edgex-core-export"
+CoreExportPort   = "48071"
+RuleEngineHost   = "edgex-rule-engine"
+RuleEnginePort   = "48075"
+SupportLoggingHost   = "edgex-support-logging"
+SupportLoggingPort   = "48061"
+SupportNotificationHost   = "edgex-support-notification"
+SupportNotificationPort   = "48060"
+SupportSchedulerHost   = "edgex-support-scheduler"
+SupportSchedulerPort   = "48085"
+
+[Registry]
+Host = "edgex-core-consul"
+Port = 8500
+Type = "consul"
+ConfigRegistryStem="edgex/appservices/"
+ServiceVersion="1.0"
