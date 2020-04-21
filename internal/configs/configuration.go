@@ -33,29 +33,8 @@ type Service struct {
 }
 
 type StaticProxy struct {
-	CoreDataHost string
-	CoreDataPort string
-
-	CoreMetadataHost string
-	CoreMetadataPort string
-
-	CoreCommandHost string
-	CoreCommandPort string
-
-	CoreExportHost string
-	CoreExportPort string
-
-	RuleEngineHost string
-	RuleEnginePort string
-
-	SupportLoggingHost string
-	SupportLoggingPort string
-
-	SupportNotificationHost string
-	SupportNotificationPort string
-
-	SupportSchedulerHost string
-	SupportSchedulerPort string
+	SystemAgentHost string
+	SystemAgentPort string
 }
 
 type RegistryConfig struct {
@@ -66,6 +45,7 @@ type RegistryConfig struct {
 	ServiceVersion     string
 }
 
+//
 func LoadConfig(confFilePath string) error {
 	if len(confFilePath) == 0 {
 		confFilePath = defaultConfigFilePath
@@ -92,15 +72,5 @@ func LoadConfig(confFilePath string) error {
 func initStaticProxyMapping() {
 
 	ProxyMapping = make(map[string]string, 10)
-
-	ProxyMapping[StaticProxyConf.CoreDataHost] = StaticProxyConf.CoreDataPort
-	ProxyMapping[StaticProxyConf.CoreMetadataHost] = StaticProxyConf.CoreMetadataPort
-	ProxyMapping[StaticProxyConf.CoreCommandHost] = StaticProxyConf.CoreCommandPort
-	ProxyMapping[StaticProxyConf.CoreExportHost] = StaticProxyConf.CoreExportPort
-
-	ProxyMapping[StaticProxyConf.RuleEngineHost] = StaticProxyConf.RuleEnginePort
-
-	ProxyMapping[StaticProxyConf.SupportLoggingHost] = StaticProxyConf.SupportLoggingPort
-	ProxyMapping[StaticProxyConf.SupportNotificationHost] = StaticProxyConf.SupportNotificationPort
-	ProxyMapping[StaticProxyConf.SupportSchedulerHost] = StaticProxyConf.SupportSchedulerPort
+	ProxyMapping[StaticProxyConf.SystemAgentHost] = StaticProxyConf.SystemAgentPort
 }

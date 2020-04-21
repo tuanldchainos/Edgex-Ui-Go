@@ -95,15 +95,15 @@ func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	urlServicePrefix, err := getServiceURLviaRegistry(client, clients.SystemManagementAgentServiceKey)
+	urlSystemAgentServicePrefix, err := getServiceURLviaRegistry(client, clients.SystemManagementAgentServiceKey)
 	if err != nil {
 		log.Printf(err.Error())
 		log.Println("get url via configuration.toml file")
 		//http.Error(w, "Can get service url", http.StatusInternalServerError)
-		urlServicePrefix = fmt.Sprintf("%s://%s:%v", "http", serviceKey, configs.ProxyMapping[serviceKey])
+		urlSystemAgentServicePrefix = fmt.Sprintf("%s://%s:%v", "http", clients.SystemManagementAgentServiceKey, configs.ProxyMapping[clients.SystemManagementAgentServiceKey])
 	}
 
-	urlPre := local.New(urlServicePrefix)
+	urlPre := local.New(urlSystemAgentServicePrefix)
 	urlPath := "/api/v1/config/" + serviceKey
 	urlBody, _ := json.Marshal(r.Body)
 
