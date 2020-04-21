@@ -24,11 +24,7 @@ func main() {
 		log.Printf("Load config failed. Error:%v\n", err)
 		return
 	}
-	// ok := mongo.DBConnect()
-	// if !ok {
-	// 	mm.DBConnect()
-	// }
-	//mm.DBConnect()
+
 	r := internal.InitRestRoutes()
 
 	server := &http.Server{

@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
+
 	"github.com/edgexfoundry/go-mod-core-contracts/clients/types"
 )
 
@@ -10,7 +10,6 @@ import (
 func ReponseHTTPrequest(w http.ResponseWriter, body []byte, err error) {
 	status := getHTTPStatus(err)
 	if status != http.StatusOK {
-		fmt.Errorf(err.Error())
 		http.Error(w, err.Error(), status)
 	} else {
 		if len(body) > 0 {

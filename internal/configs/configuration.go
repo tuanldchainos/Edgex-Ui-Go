@@ -13,7 +13,6 @@ const (
 
 var (
 	ServerConf      Service
-	DBConf          Database
 	StaticProxyConf StaticProxy
 	ProxyMapping    map[string]string
 	RegistryConf    RegistryConfig
@@ -21,7 +20,6 @@ var (
 
 type config struct {
 	Server       Service        `toml:"Service"`
-	DB           Database       `toml:"Database"`
 	StaticProxy  StaticProxy    `toml:"StaticProxy"`
 	RegistryConf RegistryConfig `toml:"Registry"`
 }
@@ -32,22 +30,6 @@ type Service struct {
 	Labels              []string
 	OpenMsg             string
 	StaticResourcesPath string
-}
-
-type Scheme struct {
-	User    string
-	Gateway string
-}
-
-type Database struct {
-	Host     string
-	Name     string
-	Port     int64
-	Username string
-	Password string
-	Timeout  int64
-	Type     string
-	Scheme   Scheme
 }
 
 type StaticProxy struct {
@@ -101,7 +83,6 @@ func LoadConfig(confFilePath string) error {
 		return err
 	}
 	ServerConf = conf.Server
-	DBConf = conf.DB
 	StaticProxyConf = conf.StaticProxy
 	RegistryConf = conf.RegistryConf
 	initStaticProxyMapping()

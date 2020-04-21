@@ -17,7 +17,37 @@ import (
 
 const ServiceConfigurableFileName = "configuration.toml"
 
-//
+func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
+	configuration := make(map[string]interface{})
+	client, err := initRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	rawConfiguration, err := client.GetConfiguration(&configuration)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	actual, ok := rawConfiguration.(*map[string]interface{})
+	if !ok {
+		log.Printf("Configuration from Registry failed type check")
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	jsonData, err := json.Marshal(*actual)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	w.Write([]byte(jsonData))
+}
+
+// GetServiceConFig return service config, found by service key
 func GetServiceConFig(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
@@ -46,14 +76,14 @@ func GetServiceConFig(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(url)
 	body, err := clients.GetRequestWithURL(ctx, url)
 	if err != nil {
-		fmt.Errorf(err.Error())
 		log.Printf(err.Error())
 	}
 	ReponseHTTPrequest(w, body, err)
 }
 
-//
+// PutServiceConfig change service config
 func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	serviceKey := vars["service"]
 	ctx := r.Context()
@@ -61,7 +91,6 @@ func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
 	client, err := initRegistryClientByServiceKey(clients.SystemManagementAgentServiceKey, true)
 	if err != nil {
 		log.Printf(err.Error())
-		fmt.Errorf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
@@ -81,7 +110,6 @@ func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
 	res, err := clients.PutRequest(ctx, urlPath, urlBody, urlPre)
 	if err != nil {
 		log.Printf(err.Error())
-		fmt.Errorf(err.Error())
 	}
 	ReponseHTTPrequest(w, []byte(res), err)
 }
