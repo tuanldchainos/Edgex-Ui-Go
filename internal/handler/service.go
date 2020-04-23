@@ -66,7 +66,6 @@ func GetServiceConFig(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf(err.Error())
 		log.Println("get url via configuration.toml file")
-		//http.Error(w, "Can get service url", http.StatusInternalServerError)
 		urlServicePrefix = fmt.Sprintf("%s://%s:%v", "http", serviceKey, configs.ProxyMapping[serviceKey])
 	}
 
