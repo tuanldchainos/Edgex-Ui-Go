@@ -13,4 +13,5 @@ require (
 	k8s.io/api v0.18.2 // indirect
 	k8s.io/client-go v11.0.0+incompatible
 	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
+	github.com/gorilla/sessions v1.2.0
 )

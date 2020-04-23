@@ -2,12 +2,14 @@ package core
 
 import (
 	"Edgex-Ui-Go/internal/configs"
-	"Edgex-Ui-Go/internal/domain"
 	"net/http"
 	"strings"
+
+	"github.com/gorilla/sessions"
 )
 
-var DevToken = make(map[string]domain.Dev)
+var DevStore = sessions.NewCookieStore([]byte(DevSessionSecretKey))
+var UserStore = sessions.NewCookieStore([]byte(UserSessionSecretKey))
 
 func GeneralFilter(h http.Handler) http.Handler {
 	authFilter := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +22,7 @@ func AuthFilter(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
 
-		if path == LoginUriPath || path == "/api/v1/dev/login" || path == "/api/v1/user/login" {
+		if path == LoginUriPath || path == DevLoginPath || path == DevLogoutPath || path == UserLoginPath || path == UserLogoutPath {
 			h.ServeHTTP(w, r)
 			return
 		}
@@ -41,10 +43,10 @@ func AuthFilter(h http.Handler) http.Handler {
 			return
 		}
 
-		token := GetMd5String(DevelopName)
-		_, isValid := DevToken[token]
+		devSession, _ := DevStore.Get(r, DevSessionSecretKey)
+		devname := devSession.Values["devname"]
 
-		if !(isValid) {
+		if devname == nil {
 			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
 			return
 		}

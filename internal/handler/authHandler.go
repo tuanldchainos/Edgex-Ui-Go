@@ -3,7 +3,6 @@ package handler
 import (
 	"Edgex-Ui-Go/internal/core"
 	"Edgex-Ui-Go/internal/domain"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -24,22 +23,23 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
-	type UserLogin struct {
-		username string
-		userpass string
-	}
 
-	var user UserLogin
+	var user domain.User
 
 	r.ParseForm()
-	user.username = r.PostFormValue("username")
-	user.userpass = r.PostFormValue("password")
+	user.Name = r.PostFormValue("username")
+	user.Password = r.PostFormValue("password")
 
-	if user.userpass == "24111998" {
-		http.Redirect(w, r, "http://www.google.com", 301)
-	} else {
-		http.Redirect(w, r, "/", 301)
+	if user.Name != core.UserName && user.Password != core.UserPass {
+		log.Printf("User: %s login failed ", user.Name)
 	}
+
+	session, _ := core.UserStore.Get(r, core.UserSessionSecretKey)
+	session.Values["username"] = user.Name
+	session.Save(r, w)
+
+	log.Printf("User: %s login ", user.Name)
+	http.Redirect(w, r, core.UserHomepagePath, core.RedirectHttpCode)
 }
 
 func DevLoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -52,18 +52,26 @@ func DevLoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if dev.Name != core.DevelopName && dev.Password != core.DevelopPass {
 		log.Printf("User: %s login failed ", dev.Name)
-		http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)
 	}
 
-	token := core.GetMd5String(dev.Name)
-	core.DevToken[token] = dev
+	session, _ := core.DevStore.Get(r, core.DevSessionSecretKey)
+	session.Values["devname"] = dev.Name
+	session.Save(r, w)
 
 	log.Printf("User: %s login ", dev.Name)
-	http.Redirect(w, r, "/api/v1/dev/homepage", core.RedirectHttpCode)
+	http.Redirect(w, r, core.DevHomepagePath, core.RedirectHttpCode)
 }
 
 func DevLogout(w http.ResponseWriter, r *http.Request) {
-	delete(core.DevToken, core.GetMd5String(core.DevelopName))
-	fmt.Println(core.DevToken)
+	session, _ := core.DevStore.Get(r, core.DevSessionSecretKey)
+	session.Options.MaxAge = -1
+	session.Save(r, w)
+	http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)
+}
+
+func UserLogout(w http.ResponseWriter, r *http.Request) {
+	session, _ := core.UserStore.Get(r, core.UserSessionSecretKey)
+	session.Options.MaxAge = -1
+	session.Save(r, w)
 	http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)
 }
