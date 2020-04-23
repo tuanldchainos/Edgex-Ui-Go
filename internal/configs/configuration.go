@@ -33,6 +33,7 @@ type Service struct {
 }
 
 type StaticProxy struct {
+	SystemAgentName string
 	SystemAgentHost string
 	SystemAgentPort string
 }
@@ -72,5 +73,5 @@ func LoadConfig(confFilePath string) error {
 func initStaticProxyMapping() {
 
 	ProxyMapping = make(map[string]string, 10)
-	ProxyMapping[StaticProxyConf.SystemAgentHost] = StaticProxyConf.SystemAgentPort
+	ProxyMapping[StaticProxyConf.SystemAgentName] = StaticProxyConf.SystemAgentPort
 }

@@ -6,6 +6,7 @@ OpenMsg = "edgeX ui started"
 StaticResourcesPath = "./static"
 
 [StaticProxy]
+SystemAgentName     = "edgex-sys-mgmt-agent"
 SystemAgentHost     = "edgex-sys-mgmt-agent"
 SystemAgentPort     = "48090"
 

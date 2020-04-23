@@ -2,33 +2,12 @@ package core
 
 import (
 	"Edgex-Ui-Go/internal/configs"
+	"Edgex-Ui-Go/internal/domain"
 	"net/http"
 	"strings"
 )
 
-const (
-	RootURIPath  = "/"
-	LoginUriPath = "/api/v1/auth/login"
-)
-
-const (
-	ContentTypeKey   = "Content-Type"
-	JsonContentType  = "application/json"
-	RedirectHttpCode = 302
-	SessionTokenKey  = "X-Session-Token"
-
-	AjaxRequestIdentifier = "XMLHttpRequest"
-	AjaxRequestHeader     = "X-Requested-With"
-
-	HtmlSuffix     = ".html"
-	CssSuffix      = ".css"
-	JsSuffix       = ".js"
-	JsonSuffix     = ".json"
-	VendorsPath    = "/vendors"
-	DataPathPrefix = "/data"
-
-	NoAuthorizationMsg = "no authorization."
-)
+var DevToken = make(map[string]domain.Dev)
 
 func GeneralFilter(h http.Handler) http.Handler {
 	authFilter := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +20,7 @@ func AuthFilter(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
 
-		if path == LoginUriPath {
+		if path == LoginUriPath || path == "/api/v1/dev/login" || path == "/api/v1/user/login" {
 			h.ServeHTTP(w, r)
 			return
 		}
@@ -62,8 +41,12 @@ func AuthFilter(h http.Handler) http.Handler {
 			return
 		}
 
-		if path != LoginUriPath {
+		token := GetMd5String(DevelopName)
+		_, isValid := DevToken[token]
+
+		if !(isValid) {
 			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
+			return
 		}
 
 		h.ServeHTTP(w, r)

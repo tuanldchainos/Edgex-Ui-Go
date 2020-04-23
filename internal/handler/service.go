@@ -15,8 +15,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const ServiceConfigurableFileName = "configuration.toml"
-
+// ListAppServicesProfile return all app service profile
 func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 	configuration := make(map[string]interface{})
 	client, err := initRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false)
@@ -65,14 +64,11 @@ func GetServiceConFig(w http.ResponseWriter, r *http.Request) {
 	urlServicePrefix, err := getServiceURLviaRegistry(client, serviceKey)
 	if err != nil {
 		log.Printf(err.Error())
-		log.Println("get url via configuration.toml file")
-		urlServicePrefix = fmt.Sprintf("%s://%s:%v", "http", serviceKey, configs.ProxyMapping[serviceKey])
 	}
 
 	var url string
 
 	url = urlServicePrefix + "/api/v1/config"
-	fmt.Println(url)
 	body, err := clients.GetRequestWithURL(ctx, url)
 	if err != nil {
 		log.Printf(err.Error())
@@ -94,12 +90,11 @@ func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	urlSystemAgentServicePrefix, err := getServiceURLviaRegistry(client, clients.SystemManagementAgentServiceKey)
+	urlSystemAgentServicePrefix, err := getServiceURLviaRegistry(client, configs.StaticProxyConf.SystemAgentName)
 	if err != nil {
 		log.Printf(err.Error())
 		log.Println("get url via configuration.toml file")
-		//http.Error(w, "Can get service url", http.StatusInternalServerError)
-		urlSystemAgentServicePrefix = fmt.Sprintf("%s://%s:%v", "http", clients.SystemManagementAgentServiceKey, configs.ProxyMapping[clients.SystemManagementAgentServiceKey])
+		urlSystemAgentServicePrefix = fmt.Sprintf("%s://%s:%v", "http", configs.StaticProxyConf.SystemAgentHost, configs.ProxyMapping[configs.StaticProxyConf.SystemAgentName])
 	}
 
 	urlPre := local.New(urlSystemAgentServicePrefix)
