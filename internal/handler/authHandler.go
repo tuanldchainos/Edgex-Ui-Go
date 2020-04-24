@@ -8,15 +8,22 @@ import (
 	"net/http"
 )
 
-func HandlerConfig(w http.ResponseWriter, r *http.Request) {
-	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/config.html"))
-	if err := tmpl.ExecuteTemplate(w, "config.html", nil); err != nil {
+// func HandlerConfig(w http.ResponseWriter, r *http.Request) {
+// 	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/config.html"))
+// 	if err := tmpl.ExecuteTemplate(w, "config.html", nil); err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 	}
+// }
+
+func DevHomepageHandler(w http.ResponseWriter, r *http.Request) {
+	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/devhomepage.html"))
+	if err := tmpl.ExecuteTemplate(w, "devhomepage.html", nil); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/login.html"))
+	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/login.html"))
 	if err := tmpl.ExecuteTemplate(w, "login.html", nil); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

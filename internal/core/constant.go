@@ -34,7 +34,6 @@ const (
 	CssSuffix      = ".css"
 	JsSuffix       = ".js"
 	JsonSuffix     = ".json"
-	VendorsPath    = "/vendors"
 	DataPathPrefix = "/data"
 
 	NoAuthorizationMsg = "no authorization."
