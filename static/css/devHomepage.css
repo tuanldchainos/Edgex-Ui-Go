@@ -1,0 +1,44 @@
+.headbar {
+	position: fixed;
+	height: 60px;
+	background-color: #4d394b;
+	top:0;
+	left:0;
+	right:0;
+	z-index: 990;
+	/* border: 1px solid red; *//* debugger */
+}
+
+.headbar ul li {
+	list-style: none;
+	display: inline-block;
+}
+
+.headbar ul {
+	  position: absolute;
+      top: 50%;
+      right:0;
+      left:0;
+      transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -moz--transform: translateY(-50%);
+}
+
+.headbar li.title {
+	font-weight: bold;
+	font-size: medium;
+	color: white;
+}
+
+.headbar li.logout{
+	margin-right:20px;
+	float: right;
+	right:10px;
+    color: white;
+    cursor: pointer;
+}
+.nav {
+    margin-top: 3%;
+    background-color: rosybrown;
+}

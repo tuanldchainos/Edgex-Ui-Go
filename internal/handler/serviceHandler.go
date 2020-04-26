@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 
+	"Edgex-Ui-Go/internal/core"
+
 	"github.com/edgexfoundry/go-mod-registry/pkg/types"
 	"github.com/edgexfoundry/go-mod-registry/registry"
 
@@ -83,18 +85,16 @@ func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
 	serviceKey := vars["service"]
 	ctx := r.Context()
 
-	client, err := initRegistryClientByServiceKey(clients.SystemManagementAgentServiceKey, true)
+	client, err := initRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
 
-	urlSystemAgentServicePrefix, err := getServiceURLviaRegistry(client, configs.StaticProxyConf.SystemAgentName)
+	urlSystemAgentServicePrefix, err := getServiceURLviaRegistry(client, core.SystemManagementAgentServiceKey)
 	if err != nil {
 		log.Printf(err.Error())
-		log.Println("get url via configuration.toml file")
-		urlSystemAgentServicePrefix = fmt.Sprintf("%s://%s:%v", "http", configs.StaticProxyConf.SystemAgentHost, configs.ProxyMapping[configs.StaticProxyConf.SystemAgentName])
 	}
 
 	urlPre := local.New(urlSystemAgentServicePrefix)

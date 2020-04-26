@@ -21,7 +21,6 @@ func GeneralFilter(h http.Handler) http.Handler {
 func AuthFilter(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
-
 		if path == LoginUriPath || path == DevLoginPath || path == DevLogoutPath || path == UserLoginPath || path == UserLogoutPath {
 			h.ServeHTTP(w, r)
 			return
@@ -48,6 +47,14 @@ func AuthFilter(h http.Handler) http.Handler {
 		if devname == nil {
 			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
 			return
+		}
+
+		for prefix := range configs.ProxyMapping {
+			if strings.HasPrefix(path, prefix) {
+				path = strings.TrimPrefix(path, prefix)
+				ProxyHandler(w, r, path, prefix)
+				return
+			}
 		}
 
 		h.ServeHTTP(w, r)

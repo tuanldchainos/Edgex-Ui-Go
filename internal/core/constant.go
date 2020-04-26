@@ -35,6 +35,11 @@ const (
 	JsSuffix       = ".js"
 	JsonSuffix     = ".json"
 	DataPathPrefix = "/data"
+	VendorsPath    = "/vendors"
+
+	HttpProtocol           = "http"
+	OriginHostReqHeader    = "X-Origin-Host"
+	ForwardedHostReqHeader = "X-Forwarded-Host"
 
 	NoAuthorizationMsg = "no authorization."
 )
@@ -52,4 +57,16 @@ const (
 const (
 	DevSessionSecretKey  = "DevSession"
 	UserSessionSecretKey = "UserSession"
+)
+
+// Edgex service keyword
+const (
+	ConfigSeedServiceKey            = "edgex-config-seed"
+	CoreCommandServiceKey           = "edgex-core-command"
+	CoreDataServiceKey              = "edgex-core-data"
+	CoreMetaDataServiceKey          = "edgex-core-metadata"
+	SupportLoggingServiceKey        = "edgex-support-logging"
+	SupportNotificationsServiceKey  = "edgex-support-notifications"
+	SystemManagementAgentServiceKey = "edgex-sys-mgmt-agent"
+	SupportSchedulerServiceKey      = "edgex-support-scheduler"
 )

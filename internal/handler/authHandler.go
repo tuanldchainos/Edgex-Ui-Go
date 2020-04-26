@@ -8,16 +8,9 @@ import (
 	"net/http"
 )
 
-// func HandlerConfig(w http.ResponseWriter, r *http.Request) {
-// 	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/config.html"))
-// 	if err := tmpl.ExecuteTemplate(w, "config.html", nil); err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 	}
-// }
-
 func DevHomepageHandler(w http.ResponseWriter, r *http.Request) {
-	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/devhomepage.html"))
-	if err := tmpl.ExecuteTemplate(w, "devhomepage.html", nil); err != nil {
+	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/devHomepage.html"))
+	if err := tmpl.ExecuteTemplate(w, "devHomepage.html", nil); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -39,6 +32,7 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if user.Name != core.UserName && user.Password != core.UserPass {
 		log.Printf("User: %s login failed ", user.Name)
+		http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)
 	}
 
 	session, _ := core.UserStore.Get(r, core.UserSessionSecretKey)
@@ -59,6 +53,7 @@ func DevLoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if dev.Name != core.DevelopName && dev.Password != core.DevelopPass {
 		log.Printf("User: %s login failed ", dev.Name)
+		http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)
 	}
 
 	session, _ := core.DevStore.Get(r, core.DevSessionSecretKey)
