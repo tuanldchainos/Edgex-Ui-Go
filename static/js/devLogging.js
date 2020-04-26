@@ -57,16 +57,11 @@ $(document).ready(function(){
       var keyword = document.getElementById("log_key_word").value;
       var start_str = document.getElementById("log_start_time").value;
       var end_str = document.getElementById("log_end_time").value;
-      var limit = $("select[name='log_limit']").val();
-      var start = new Date(start_str);
-      var end = new Date(end_str);
   
-      var start_timestamp = start.getTime();
-      var end_timestamp = end.getTime();
       if (keyword === null){
-        logging.loadLoggingBySearchService(service,start_timestamp,end_timestamp,limit);
+        logging.loadLoggingBySearchService(service,start_str,end_str,limit);
       }else{
-        logging.loadLoggingBySearchKeyword(keyword,start_timestamp,end_timestamp,limit);
+        logging.loadLoggingBySearchKeyword(keyword,start_str,end_str,limit);
       }
     }
   
