@@ -57,7 +57,8 @@ $(document).ready(function(){
       var keyword = document.getElementById("log_key_word").value;
       var start_str = document.getElementById("log_start_time").value;
       var end_str = document.getElementById("log_end_time").value;
-  
+      var limit = $("select[name='log_limit']").val();
+
       if (keyword === null){
         logging.loadLoggingBySearchService(service,start_str,end_str,limit);
       }else{
