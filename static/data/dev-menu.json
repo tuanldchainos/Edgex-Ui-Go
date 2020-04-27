@@ -20,11 +20,6 @@
         "status":false
     },
     {
-        "title":"SupService",
-        "url":"/pages/devSupportService.html",
-        "status":false
-    },
-    {
         "title":"AppService",
         "url":"/pages/devAppService.html",
         "status":false

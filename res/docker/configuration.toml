@@ -6,13 +6,36 @@ OpenMsg = "edgeX ui started"
 StaticResourcesPath = "./static"
 
 [StaticProxy]
-SystemAgentName     = "edgex-sys-mgmt-agent"
-SystemAgentHost     = "edgex-sys-mgmt-agent"
+SystemAgentPath     = "/edgex-sys-mgmt-agent"
 SystemAgentPort     = "48090"
+SystemAgentHost     = "edgex-sys-mgmt-agent"
+
+CoreDataPath     = "/edgex-core-data"
+CoreDataPort     = "48080"
+CoreDataHost     = "localhost"
+
+CoreMetadataPath = "/edgex-core-metadata"
+CoreMetadataPort = "48081"
+CoreMetadataHost = "localhost"
+
+CoreCommandPath  = "/edgex-core-command"
+CoreCommandPort  = "48082"
+CoreCommandHost  = "localhost"
+
+SupportLoggingPath   = "/edgex-support-logging"
+SupportLoggingPort   = "48061"
+SupportLoggingHost   = "localhost"
+
+SupportNotificationPath   = "/edgex-support-notifications"
+SupportNotificationPort   = "48060"
+SupportNotificationHost   = "localhost"
+
+SupportSchedulerPath   = "/edgex-support-scheduler"
+SupportSchedulerPort   = "48085"
+SupportSchedulerHost   = "localhost"
 
 [Registry]
 Host = "edgex-core-consul"
 Port = 8500
 Type = "consul"
-ConfigRegistryStem="edgex/appservices/"
 ServiceVersion="1.0"

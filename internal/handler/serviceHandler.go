@@ -9,18 +9,15 @@ import (
 
 	"Edgex-Ui-Go/internal/core"
 
-	"github.com/edgexfoundry/go-mod-registry/pkg/types"
-	"github.com/edgexfoundry/go-mod-registry/registry"
+	"github.com/pelletier/go-toml"
 
-	"github.com/edgexfoundry/go-mod-core-contracts/clients"
-	"github.com/edgexfoundry/go-mod-core-contracts/clients/urlclient/local"
 	"github.com/gorilla/mux"
 )
 
 // ListAppServicesProfile return all app service profile
 func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 	configuration := make(map[string]interface{})
-	client, err := initRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false)
+	client, err := InitRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false, core.ConfigAppRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -48,95 +45,74 @@ func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(jsonData))
 }
 
-// GetServiceConFig return service config, found by service key
-func GetServiceConFig(w http.ResponseWriter, r *http.Request) {
+// PutServiceConfigViaAgent change service config via agent
+func PutCoreServiceConfig(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-
 	vars := mux.Vars(r)
-	serviceKey := vars["service"]
-	ctx := r.Context()
-
-	client, err := initRegistryClientByServiceKey(serviceKey, true)
+	coreservice := vars["coreservice"]
+	configuration := make(map[string]interface{})
+	err := json.NewDecoder(r.Body).Decode(&configuration)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
 
-	urlServicePrefix, err := getServiceURLviaRegistry(client, serviceKey)
+	client, err := InitRegistryClientByServiceKey(coreservice, true, core.ConfigDevRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
 	}
-
-	var url string
-
-	url = urlServicePrefix + "/api/v1/config"
-	body, err := clients.GetRequestWithURL(ctx, url)
-	if err != nil {
-		log.Printf(err.Error())
-	}
-	ReponseHTTPrequest(w, body, err)
-}
-
-// PutServiceConfig change service config
-func PutServiceConfig(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	serviceKey := vars["service"]
-	ctx := r.Context()
-
-	client, err := initRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true)
+	configurationTomlTree, err := toml.TreeFromMap(configuration)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
 
-	urlSystemAgentServicePrefix, err := getServiceURLviaRegistry(client, core.SystemManagementAgentServiceKey)
+	fmt.Println()
+	err = client.PutConfigurationToml(configurationTomlTree, true)
 	if err != nil {
 		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
 	}
+	w.Write([]byte("update core service config successfully"))
+}
 
-	urlPre := local.New(urlSystemAgentServicePrefix)
-	urlPath := "/api/v1/config/" + serviceKey
-	urlBody, _ := json.Marshal(r.Body)
-
-	res, err := clients.PutRequest(ctx, urlPath, urlBody, urlPre)
+func PutAppServiceConfig(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	vars := mux.Vars(r)
+	appserviceKey := vars["appservice"]
+	configuration := make(map[string]interface{})
+	err := json.NewDecoder(r.Body).Decode(&configuration)
 	if err != nil {
 		log.Printf(err.Error())
-	}
-	ReponseHTTPrequest(w, []byte(res), err)
-}
-
-func initRegistryClientByServiceKey(serviceKey string, needVersionPath bool) (registry.Client, error) {
-	registryConfig := types.Config{
-		Host:       configs.RegistryConf.Host,
-		Port:       configs.RegistryConf.Port,
-		Type:       configs.RegistryConf.Type,
-		ServiceKey: serviceKey,
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
 	}
 
-	if needVersionPath {
-		registryConfig.Stem = configs.RegistryConf.ConfigRegistryStem + configs.RegistryConf.ServiceVersion + "/"
-	} else {
-		registryConfig.Stem = configs.RegistryConf.ConfigRegistryStem
-	}
-
-	client, err := registry.NewRegistryClient(registryConfig)
+	client, err := InitRegistryClientByServiceKey(appserviceKey, true, core.ConfigAppRegistryStem)
 	if err != nil {
-		return nil, fmt.Errorf("Connection to Registry could not be made: %v", err)
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
 	}
-	if !client.IsAlive() {
-		return nil, fmt.Errorf("Registry (%s) is not running", registryConfig.Type)
-	}
-	return client, nil
-}
 
-func getServiceURLviaRegistry(client registry.Client, serviceName string) (string, error) {
-	endpoint, err := client.GetServiceEndpoint(serviceName)
+	configurationTomlTree, err := toml.TreeFromMap(configuration)
 	if err != nil {
-		return "", err
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
 	}
-	url := fmt.Sprintf("%s://%s:%v", "http", endpoint.Host, endpoint.Port)
-	return url, nil
+
+	fmt.Println()
+	err = client.PutConfigurationToml(configurationTomlTree, true)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	w.Write([]byte("update app service config successfully"))
 }

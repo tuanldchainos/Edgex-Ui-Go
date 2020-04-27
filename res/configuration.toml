@@ -7,6 +7,8 @@ StaticResourcesPath = "./static"
 
 [StaticProxy]
 SystemAgentPath     = "/edgex-sys-mgmt-agent"
+SystemAgentPort     = "48090"
+SystemAgentHost     = "localhost"
 
 CoreDataPath     = "/edgex-core-data"
 CoreDataPort     = "48080"
@@ -36,5 +38,4 @@ SupportSchedulerHost   = "localhost"
 Host = "localhost"
 Port = 8500
 Type = "consul"
-ConfigRegistryStem="edgex/appservices/"
 ServiceVersion="1.0"

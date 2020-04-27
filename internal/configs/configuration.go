@@ -56,14 +56,17 @@ type StaticProxy struct {
 	SupportSchedulerPath string
 	SupportSchedulerPort string
 	SupportSchedulerHost string
+
+	SystemAgentPath string
+	SystemAgentPort string
+	SystemAgentHost string
 }
 
 type RegistryConfig struct {
-	Host               string
-	Port               int
-	Type               string
-	ConfigRegistryStem string
-	ServiceVersion     string
+	Host           string
+	Port           int
+	Type           string
+	ServiceVersion string
 }
 
 // LoadConfig get config form configuration.toml
@@ -97,7 +100,7 @@ func initStaticProxyMapping() {
 	ProxyMapping[StaticProxyConf.CoreDataPath] = StaticProxyConf.CoreDataPort
 	ProxyMapping[StaticProxyConf.CoreMetadataPath] = StaticProxyConf.CoreMetadataPort
 	ProxyMapping[StaticProxyConf.CoreCommandPath] = StaticProxyConf.CoreCommandPort
-
+	ProxyMapping[StaticProxyConf.SystemAgentPath] = StaticProxyConf.SystemAgentPort
 	ProxyMapping[StaticProxyConf.SupportLoggingPath] = StaticProxyConf.SupportLoggingPort
 	ProxyMapping[StaticProxyConf.SupportNotificationPath] = StaticProxyConf.SupportNotificationPort
 	ProxyMapping[StaticProxyConf.SupportSchedulerPath] = StaticProxyConf.SupportSchedulerPort

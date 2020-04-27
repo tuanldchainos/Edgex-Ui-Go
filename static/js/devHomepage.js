@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	window.onunload = WindowOnUnload
 	
 	$.ajaxSetup({
 		cache: false,
@@ -29,7 +30,6 @@ $(document).ready(function () {
 		}
 	})
 
-	window.onunload = WindowOnUnload
 
     function WindowOnUnload() {
 		$.ajax({
