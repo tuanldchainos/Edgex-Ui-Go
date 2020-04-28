@@ -107,7 +107,6 @@ func PutAppServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println()
 	err = client.PutConfigurationToml(configurationTomlTree, true)
 	if err != nil {
 		log.Printf(err.Error())
