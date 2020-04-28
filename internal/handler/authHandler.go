@@ -15,6 +15,8 @@ func DevHomepageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func UserHomepageHandler(w http.ResponseWriter, r *http.Request) {}
+
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	var tmpl = template.Must(template.New("tmpl").ParseFiles("static/pages/login.html"))
 	if err := tmpl.ExecuteTemplate(w, "login.html", nil); err != nil {
