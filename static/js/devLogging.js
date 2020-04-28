@@ -1,10 +1,25 @@
 $(document).ready(function(){
+  debugger
+  $("#log_start_time").flatpickr({
+    dateFormat:"Y-m-d H:i:S",
+    enableTime:true,
+    enableSeconds:true,
+    time_24hr:true,
+    allowInput:false
+  });
+  $("#log_end_time").flatpickr({
+    dateFormat:"Y-m-d H:i:S",
+    enableTime:true,
+    enableSeconds:true,
+    time_24hr:true,
+    allowInput:false
+  });
   $('[data-toggle="log-tooltip"]').tooltip();
   $('[data-toggle="eraser-tooltip"]').tooltip();
-  supportLogging.loadAllDeviceServices();
-  });
+  orgEdgexFoundry.supportLogging.loadAllDeviceServices();
+});
   
-  supportLogging = (function(){
+  orgEdgexFoundry.supportLogging = (function(){
     "use strict";
   
     function SupportLogging(){
@@ -40,7 +55,6 @@ $(document).ready(function(){
         type:'GET',
         success:function(data){
           $.each(data,function(i,s){
-            console.log(data)
             logging.allMicrosevices.push(s.name);
             logging.initLogMiscroseviceSelectPanel(logging.allMicrosevices);
           });
@@ -58,11 +72,17 @@ $(document).ready(function(){
       var start_str = document.getElementById("log_start_time").value;
       var end_str = document.getElementById("log_end_time").value;
       var limit = $("select[name='log_limit']").val();
+      start_str = start_str.replace(/-/g,'/');
+      end_str = end_str.replace(/-/g,'/');
+      var start = new Date(start_str);
+      var end = new Date(end_str);
 
-      if (keyword === null){
-        logging.loadLoggingBySearchService(service,start_str,end_str,limit);
+      var start_timestamp = start.getTime();
+      var end_timestamp = end.getTime();
+      if (keyword == ""){
+        logging.loadLoggingBySearchService(service,start_timestamp,end_timestamp,limit);
       }else{
-        logging.loadLoggingBySearchKeyword(keyword,start_str,end_str,limit);
+        logging.loadLoggingBySearchKeyword(keyword,start_timestamp,end_timestamp,limit);
       }
     }
   
@@ -71,7 +91,6 @@ $(document).ready(function(){
         url:'/edgex-support-logging/api/v1/logs/originServices/'+service+'/'+start_timestamp+'/'+end_timestamp+'/' + limit,
         type:'GET',
         success:function(data){
-          console.log(data)
           $("#log-content div.log_content").empty();
           if(data.length == 0) {
               $("#log-content div.log_content").append('<span style="color:white;">No data.</span>');
@@ -84,10 +103,9 @@ $(document).ready(function(){
 
     SupportLogging.prototype.loadLoggingBySearchKeyword = function(keyword,start_timestamp,end_timestamp,limit){
         $.ajax({
-          url:'/edgex-support-logging/api/v1/logs/keywords/'+service+'/'+start_timestamp+'/'+end_timestamp+'/' + limit,
+          url:'/edgex-support-logging/api/v1/logs/keywords/'+keyword+'/'+start_timestamp+'/'+end_timestamp+'/' + limit,
           type:'GET',
           success:function(data){
-            console.log(data)
             $("#log-content div.log_content").empty();
             if(data.length == 0) {
                 $("#log-content div.log_content").append('<span style="color:white;">No data.</span>');

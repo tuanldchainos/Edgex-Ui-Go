@@ -6,18 +6,17 @@
     <link href="/css/devCoreService.css" rel="stylesheet">
 </head>
 <body>
-    <div class="service-box" id ="Edgex-core-command">
-        <div class="service-title">Edgex-core-command</div>
-        <div class="service-control">
-            <button class="btn" id="get-config" value="Edgex-core-command"></button>
-            <div class="content"></div>
-            <button class="btn" id="put-config" value ="Edgex-core-command"></button>
-            <div class="content"></div>
+    <div class=service-option>
+        <div class="service-label">Core Service</div>
+        <div class="select-box">
+            <select id="select-bar"></select>
         </div>
+        <input id="get-service-config" type="button" value="Get config" onclick="orgEdgexFoundry.coreService.getConfig()">
+        <input id="put-service-config" type="button" value="Update config" onclick="orgEdgexFoundry.coreService.putConfig()">
     </div>
-    <div class="service-box" id ="Edgex-core-metadata"></div>
-    <div class="service-box" id ="Edgex-core-data"></div>
-
+    <div class="content">
+        <textarea id="config-content"></textarea>
+    </div>
 </body>
-<script src="/js/devCoreService.js" type="text/javascript"></script>
+<script src="/js/devCoreService.js"></script>
 </html>

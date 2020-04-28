@@ -1,6 +1,5 @@
 $(document).ready(function () {
-	window.onunload = WindowOnUnload
-	
+
 	$.ajaxSetup({
 		cache: false,
 		headers: { "X-Session-Token": window.sessionStorage.getItem("X_Session_Token") },
@@ -29,17 +28,6 @@ $(document).ready(function () {
 			menuRender(data);
 		}
 	})
-
-
-    function WindowOnUnload() {
-		$.ajax({
-			url: '/api/v1/dev/logout',
-			type: 'GET',
-			success: function () {
-				window.location.href = '/api/v1/auth/login'
-			}
-		});
-	}
 
 	function menuRender(data) {
 		for(var i=0; i < data.length; i++) {

@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/vendors/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="/vendors/flatpickr/theme/confetti.css">  
     <link href="/css/devLogging.css" rel="stylesheet">
-    <script src="/js/devLogging.js" type="text/javascript"></script>
+   
 </head>
 <body>
     <div id="edgex-support-logging-tab-main">
@@ -25,8 +27,8 @@
                       <option>300</option>
                       <option>500</option>
                   </select>
-                  &nbsp;&nbsp;&nbsp;<i id="support-logging-search" style="color:green;" onclick="supportLogging.searchBtn()" class="fa fa-search fa-lg" aria-hidden="true" data-toggle="log-tooltip" data-placement="right" title="log screen."></i>
-                  &nbsp;&nbsp;&nbsp;<i id="support-logging-eraser-screen" style="color:green;" onclick="supportLogging.eraseScreenBtn()" class="fa fa-eraser fa-lg" aria-hidden="true" data-toggle="eraser-tooltip" data-placement="right" title="erase screen." ></i>
+                  &nbsp;&nbsp;&nbsp;<i id="support-logging-search" style="color:green;" onclick="orgEdgexFoundry.supportLogging.searchBtn()" class="fa fa-search fa-lg" aria-hidden="true" data-toggle="log-tooltip" data-placement="right" title="log screen."></i>
+                  &nbsp;&nbsp;&nbsp;<i id="support-logging-eraser-screen" style="color:green;" onclick="orgEdgexFoundry.supportLogging.eraseScreenBtn()" class="fa fa-eraser fa-lg" aria-hidden="true" data-toggle="eraser-tooltip" data-placement="right" title="erase screen." ></i>
                 </form>
               </div>
             </div>
@@ -39,4 +41,6 @@
         </div>
       </div>
 </body>
+<script src="/vendors/flatpickr/flatpickr.min.js"></script>
+<script src="/js/devLogging.js"></script>
 </html>
