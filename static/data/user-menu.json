@@ -1,0 +1,17 @@
+[
+    {
+        "title":"General",
+        "url":"/pages/userGeneral.html",
+        "status":true
+    },
+    {
+        "title":"DevService",
+        "url":"/pages/userDeviceService.html",
+        "status":false
+    },
+    {
+        "title":"AppService",
+        "url":"/pages/userAppService.html",
+        "status":false
+    }
+]

@@ -1,6 +1,6 @@
 package domain
 
-type User struct {
+type Cre struct {
 	Name     string
 	Password string
 }

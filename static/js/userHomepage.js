@@ -13,7 +13,7 @@ $(document).ready(function () {
     //logout control
 	$(".headbar li.logout").on("click", function () {
 		$.ajax({
-			url: '/api/v1/dev/logout',
+			url: '/api/v1/user/logout',
 			type: 'GET',
 			success: function () {
 				window.location.href = '/api/v1/auth/login'
@@ -22,7 +22,7 @@ $(document).ready(function () {
 	});
 
 	$.ajax({
-		url: "/data/dev-menu.json",
+		url: "/data/user-menu.json",
 		type: "GET",
 		success: function (data) {
 			menuRender(data);

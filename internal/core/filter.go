@@ -21,7 +21,7 @@ func GeneralFilter(h http.Handler) http.Handler {
 func AuthFilter(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
-		if path == LoginUriPath || path == DevLoginPath || path == DevLogoutPath || path == UserLoginPath || path == UserLogoutPath {
+		if path == LoginUriPath || path == DevLoginPath || path == DevLogoutPath || path == UserLoginPath || path == UserLogoutPath || path == UserChangePass {
 			h.ServeHTTP(w, r)
 			return
 		}
@@ -45,16 +45,26 @@ func AuthFilter(h http.Handler) http.Handler {
 		devSession, _ := DevStore.Get(r, DevSessionSecretKey)
 		devname := devSession.Values["devname"]
 
-		if devname == nil {
+		userSession, _ := UserStore.Get(r, UserSessionSecretKey)
+		username := userSession.Values["username"]
+
+		if devname == nil && username == nil {
 			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
 			return
 		}
 
-		for prefix := range configs.ProxyMapping {
-			if strings.HasPrefix(path, prefix) {
-				path = strings.TrimPrefix(path, prefix)
-				ProxyHandler(w, r, path, prefix)
-				return
+		if devname == nil && strings.HasPrefix(path, devPrefix) {
+			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
+			return
+		}
+
+		if devname != nil {
+			for prefix := range configs.ProxyMapping {
+				if strings.HasPrefix(path, prefix) {
+					path = strings.TrimPrefix(path, prefix)
+					ProxyHandler(w, r, path, prefix)
+					return
+				}
 			}
 		}
 

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  debugger
+  
   $("#log_start_time").flatpickr({
     dateFormat:"Y-m-d H:i:S",
     enableTime:true,

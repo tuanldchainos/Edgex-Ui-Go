@@ -2,8 +2,8 @@ package core
 
 var ()
 
-func LoadServiceUri()
+func LoadServiceUri() {}
 
-func setServiceUri()
+func setServiceUri() {}
 
-func updateServiceUri()
+func updateServiceUri() {}

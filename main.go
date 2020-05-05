@@ -5,6 +5,7 @@ import (
 	"Edgex-Ui-Go/internal/configs"
 	"Edgex-Ui-Go/internal/core"
 	"Edgex-Ui-Go/internal/pkg/usage"
+	"Edgex-Ui-Go/internal/userMemory"
 	"flag"
 	"log"
 	"net/http"
@@ -27,6 +28,7 @@ func main() {
 	}
 
 	r := internal.InitRestRoutes()
+	userMemory.SetUserPassword()
 
 	server := &http.Server{
 		Handler:      core.GeneralFilter(r),

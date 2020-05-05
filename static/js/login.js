@@ -1,3 +1,4 @@
+
 function userInit() {
     let htmlUserInner = document.getElementById("userlogin")
     let htmlDevInner = document.getElementById("devlogin")
@@ -12,9 +13,9 @@ function userInit() {
                 + '</div>\n'
                 + '<div class="btn-box">\n'
                 + '<button type="submit">Login</button>\n'
-                + '<button>Change Password</button>\n'
                 + '</div>\n'
                 + '</form>\n'
+                + '<button onclick="changeUserPassInit()">Change Password</button>\n'
                 + '</div>\n'
                 + '</div>\n'
                 + '<main>'
@@ -43,3 +44,45 @@ function devInit() {
     htmlDevInner.innerHTML = devLoginContent
     htmlUserInner.innerHTML = null
 }
+
+function changeUserPassInit() {
+    let htmlUserInner = document.getElementById("userlogin")
+    let htmlDevInner = document.getElementById("devlogin")
+    let changeUserPassInitContent ='<main>' 
+                +'<div class="container">\n'
+                + '<div class="login-form">\n'
+                + '<form>\n'
+                + '<h1>Change password for user</h1>\n'
+                + '<div class="input-box">\n'
+                + '<input type="password" placeholder="oldpass" id="oldpass">\n'
+                + '<input type="password" placeholder="newpass" id="newpass">\n'
+                + '</div>\n'
+                + '<div class="btn-box">\n'
+                + '</div>\n'
+                + '</form>\n'
+                + '<button onclick="updateUserPass()">Change</button>\n'
+                + '</div>\n'
+                + '</div>\n'
+                + '<main>'
+    htmlUserInner.innerHTML = changeUserPassInitContent
+    htmlDevInner.innerHTML = null
+}
+
+function updateUserPass() {
+    var oldpass = document.getElementById("oldpass").value
+    var newpass = document.getElementById("newpass").value
+    $.ajax({
+        url: '/api/v1/user/change/pass',
+        type: 'POST',
+        contentType: 'application/json',
+        data:JSON.stringify({
+            "oldpass": oldpass,
+            "newpass": newpass
+        }),
+        success: function(data) {
+            alert(data)
+            window.location.href = "api/v1/auth/login";
+        }
+    })
+}
+

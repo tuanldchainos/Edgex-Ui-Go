@@ -14,6 +14,7 @@ func InitRestRoutes() http.Handler {
 	r.HandleFunc(core.LoginUriPath, handler.LoginHandler).Methods(http.MethodGet)
 	r.HandleFunc(core.UserLoginPath, handler.UserLoginHandler).Methods(http.MethodPost)
 	r.HandleFunc(core.UserLogoutPath, handler.UserLogout).Methods(http.MethodGet)
+	r.HandleFunc(core.UserChangePass, handler.UserChangePassHandler).Methods(http.MethodPost)
 	r.HandleFunc(core.DevLoginPath, handler.DevLoginHandler).Methods(http.MethodPost)
 	r.HandleFunc(core.DevLogoutPath, handler.DevLogout).Methods(http.MethodGet)
 

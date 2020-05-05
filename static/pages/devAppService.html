@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/devAppService.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-service-option">
+        <div class="app-service-label">App Service</div>
+        <div class="app-service-select-box">
+            <select id="app-service-select-bar"></select>
+        </div>
+        <input id="get-app-service-config" type="button" value="Get config" onclick="orgEdgexFoundry.appService.getConfig()">
+        <input id="put-app-service-config" type="button" value="Update config" onclick="orgEdgexFoundry.appService.putConfig()">
+    </div>
+    <div class="app-service-content">
+        <textarea id="app-service-config-content"></textarea>
+    </div>
+</body>
+<script src="/js/devAppService.js"></script>
+</html>

@@ -18,6 +18,7 @@ const (
 	UserHomepagePath = "/api/v1/user/homepage"
 	UserLoginPath    = "/api/v1/user/login"
 	UserLogoutPath   = "/api/v1/user/logout"
+	UserChangePass   = "/api/v1/user/change/pass"
 )
 
 // server config
@@ -59,6 +60,8 @@ const (
 const (
 	DevSessionSecretKey  = "DevSession"
 	UserSessionSecretKey = "UserSession"
+
+	devPrefix = "/api/v1/dev/"
 )
 
 // Edgex service keyword

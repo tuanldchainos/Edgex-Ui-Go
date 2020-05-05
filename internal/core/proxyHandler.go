@@ -24,6 +24,8 @@ func ProxyHandler(w http.ResponseWriter, r *http.Request, path string, prefix st
 		targetAddr = HttpProtocol + "://" + configs.StaticProxyConf.SupportNotificationHost + ":" + configs.StaticProxyConf.SupportNotificationPort
 	case configs.StaticProxyConf.SupportSchedulerPath:
 		targetAddr = HttpProtocol + "://" + configs.StaticProxyConf.SupportSchedulerHost + ":" + configs.StaticProxyConf.SupportSchedulerPort
+	case configs.StaticProxyConf.SystemAgentPath:
+		targetAddr = HttpProtocol + "://" + configs.StaticProxyConf.SystemAgentHost + ":" + configs.StaticProxyConf.SystemAgentPort
 	}
 
 	origin, _ := url.Parse(targetAddr)
