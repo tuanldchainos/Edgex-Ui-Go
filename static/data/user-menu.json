@@ -11,7 +11,13 @@
     },
     {
         "title":"AppService",
-        "url":"/pages/userAppService.html",
+        "url":"/pages/userMqttService.html",
+        "status":false
+    },
+    {
+        "title":"Export",
+        "url":"/pages/userExportService.html",
         "status":false
     }
+    
 ]
