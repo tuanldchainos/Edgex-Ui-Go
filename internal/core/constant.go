@@ -42,9 +42,10 @@ const (
 	OriginHostReqHeader    = "X-Origin-Host"
 	ForwardedHostReqHeader = "X-Forwarded-Host"
 
-	NoAuthorizationMsg    = "no authorization."
-	ConfigAppRegistryStem = "edgex/appservices/"
-	ConfigDevRegistryStem = "edgex/core/"
+	NoAuthorizationMsg     = "no authorization."
+	ConfigAppRegistryStem  = "edgex/appservices/"
+	ConfigDevRegistryStem  = "edgex/core/"
+	ConfigCoreRegistryStem = "edgex/core/"
 )
 
 // user and dev login info

@@ -12,11 +12,12 @@ $(document).ready(function() {
 
         AppService.prototype = {
             constructor:AppService,
+            restartService: null,
             loadAppService: null,
             initAppSelectBox: null,
             getConfig: null,
             putConfig: null,
-            renderConfig: null
+            renderConfig: null,
         }
 
         var app = new AppService()
@@ -41,16 +42,16 @@ $(document).ready(function() {
                     });
                 }
             });
-            console.log(app.allAppServices)
         }
 
         AppService.prototype.getConfig = function() {
             var appService = document.getElementById("app-service-select-bar").value;
             $.ajax({
-                url:'/edgex-sys-mgmt-agent' + '/api/v1/config/' + appService,
+                // url:'/edgex-sys-mgmt-agent' + '/api/v1/config/' + appService,
+                url:'/api/v1/dev/appservice/list',
                 type:'GET',
                 success: function(data){
-                    app.renderConfig(data)
+                    app.renderConfig(data[appService])
                 }
             })
         }
@@ -74,6 +75,26 @@ $(document).ready(function() {
                 error: function() {
                     alert("faile to update service config, please try again")
                 }
+            })
+        }
+
+        AppService.prototype.restartService = function() {
+            var appService = document.getElementById("app-service-select-bar").value
+            $.ajax({
+                url: '/edgex-sys-mgmt-agent/api/v1/operation',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "action":"restart",
+                    "services":[appService]
+                }),
+                success: function(data) {
+                    if(data[0].Success){
+                        alert("Restart app service successfully")
+                    }else {
+                        alert("fail to restart app service, please try again")
+                    }
+                },
             })
         }
         return app

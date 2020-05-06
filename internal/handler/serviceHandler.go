@@ -14,7 +14,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// ListAppServicesProfile return all app service profile
 func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 	configuration := make(map[string]interface{})
 	client, err := InitRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false, core.ConfigAppRegistryStem)
@@ -45,7 +44,6 @@ func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(jsonData))
 }
 
-// PutServiceConfigViaAgent change service config via agent
 func PutCoreServiceConfig(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	vars := mux.Vars(r)
@@ -58,7 +56,7 @@ func PutCoreServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := InitRegistryClientByServiceKey(coreservice, true, core.ConfigDevRegistryStem)
+	client, err := InitRegistryClientByServiceKey(coreservice, true, core.ConfigCoreRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -114,4 +112,39 @@ func PutAppServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write([]byte("update app service config successfully"))
+}
+
+func PutDevServiceConfig(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	vars := mux.Vars(r)
+	devservice := vars["devservice"]
+	configuration := make(map[string]interface{})
+	err := json.NewDecoder(r.Body).Decode(&configuration)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+
+	client, err := InitRegistryClientByServiceKey(devservice, true, core.ConfigDevRegistryStem)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	configurationTomlTree, err := toml.TreeFromMap(configuration)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println()
+	err = client.PutConfigurationToml(configurationTomlTree, true)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	w.Write([]byte("update device service config successfully"))
 }

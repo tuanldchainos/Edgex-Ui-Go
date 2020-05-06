@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+    debugger
     orgEdgexFoundry.devService.loadDevService()
 })
 
@@ -12,11 +12,12 @@ $(document).ready(function() {
 
         DevService.prototype = {
             constructor:DevService,
+            restartService: null,
             loadDevService: null,
             initDevSelectBox: null,
             getConfig: null,
             putConfig: null,
-            renderConfig: null
+            renderConfig: null,
         }
 
         var dev = new DevService()
@@ -49,7 +50,8 @@ $(document).ready(function() {
                 url:'/edgex-sys-mgmt-agent' + '/api/v1/config/' + devService,
                 type:'GET',
                 success: function(data){
-                    dev.renderConfig(data)
+                    var devConfig = data.configuration
+                    dev.renderConfig(devConfig[devService])
                 }
             })
         }
@@ -73,6 +75,27 @@ $(document).ready(function() {
                 error: function() {
                     alert("faile to update service config, please try again")
                 }
+            })
+        }
+
+        DevService.prototype.restartService = function() {
+            var devService = document.getElementById("device-service-select-bar").value
+            console.log(devService)
+            $.ajax({
+                url: '/edgex-sys-mgmt-agent/api/v1/operation',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "action":"restart",
+                    "services":["edgex-" + devService]
+                }),
+                success: function(data) {
+                    if(data[0].Success){
+                        alert("Restart device service successfully")
+                    }else {
+                        alert("fail to restart device service, please try again")
+                    }
+                },
             })
         }
         return dev

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+    debugger
     orgEdgexFoundry.coreService.loadCoreService()
 })
 
@@ -12,11 +12,12 @@ $(document).ready(function() {
 
         CoreService.prototype = {
             constructor:CoreService,
+            restartService: null,
             loadCoreService: null,
             initCoreSelectBox: null,
             getConfig: null,
             putConfig: null,
-            renderConfig: null
+            renderConfig: null,
         }
 
         var core = new CoreService()
@@ -64,6 +65,26 @@ $(document).ready(function() {
                 error: function() {
                     alert("faile to update service config, please try again")
                 }
+            })
+        }
+
+        CoreService.prototype.restartService = function() {
+            var coreService = document.getElementById("select-bar").value
+            $.ajax({
+                url: '/edgex-sys-mgmt-agent/api/v1/operation',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "action":"restart",
+                    "services":[coreService]
+                }),
+                success: function(data) {
+                    if(data[0].Success){
+                        alert("Restart core service successfully")
+                    }else {
+                        alert("fail to restart core service, please try again")
+                    }
+                },
             })
         }
         return core

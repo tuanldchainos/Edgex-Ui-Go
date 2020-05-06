@@ -22,9 +22,9 @@ func InitRestRoutes() http.Handler {
 	r.HandleFunc(core.UserHomepagePath, handler.UserHomepageHandler).Methods(http.MethodGet)
 
 	r.HandleFunc("/api/v1/dev/appservice/list", handler.ListAppServicesProfile).Methods(http.MethodGet)
-
 	r.HandleFunc("/api/v1/dev/config/appservice/{appservice}", handler.PutAppServiceConfig).Methods(http.MethodPost)
 	r.HandleFunc("/api/v1/dev/config/coreservice/{coreservice}", handler.PutCoreServiceConfig).Methods(http.MethodPost)
+	r.HandleFunc("/api/v1/dev/config/devservice/{devservice}", handler.PutDevServiceConfig).Methods(http.MethodPost)
 
 	return r
 }
