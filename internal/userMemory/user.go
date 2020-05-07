@@ -11,19 +11,16 @@ type User struct {
 	Pass string
 }
 
-
-func SetUserPassword(){
+func SetUserPassword() {
 	BasicUser = User{
 		Name: core.UserName,
 		Pass: core.UserPass,
 	}
 }
 
-func UpdateUserPass(pass string){
+func UpdateUserPass(pass string) {
 	BasicUser = User{
 		Name: core.UserName,
 		Pass: pass,
 	}
 }
-
-

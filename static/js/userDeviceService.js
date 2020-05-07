@@ -1,29 +1,26 @@
 $(document).ready(function() {
     debugger
 })
-orgEdgexFoundry.userMqtt = (function(){
+orgEdgexFoundry.userZigbeeService = (function(){
     "use strict";
 
-    function UserMqtt(){
-        this.Mqtt = 'edgex-core-data'
+    function UserZigbeeService(){
+        this.ZigbeeService = 'edgex-device-zigbee'
     }
 
-    UserMqtt.prototype = {
-        constructor:UserMqtt,
-        restartMqtt: null,
-        connectMqtt: null,
+    UserZigbeeService.prototype = {
+        constructor:UserZigbeeService,
+        restartService: null,
+        putConfig: null,
     }
 
-    var userMqttService = new UserMqtt()
+    var userZigbee = new UserZigbeeService()
 
-    // UserMqtt.prototype.connectMqtt = function() {
-    //     var host = document.getElementById
 
-    //     var dataMqtt = {
-
-    //     }
+    // UserZigbeeService.prototype.putConfig = function() {
+        
     //     $.ajax({
-    //         url: '/api/v1/user/config/appservice/' + userMqttService.Mqtt,
+    //         url: '/api/v1/user/config/devservice/' + userZigbee.ZigbeeService,
     //         type: 'POST',
     //         contentType: 'application/json',
     //         data: ,
@@ -36,28 +33,29 @@ orgEdgexFoundry.userMqtt = (function(){
     //     })
     // }
 
-    UserMqtt.prototype.restartMqtt = function() {
+    UserZigbeeService.prototype.restartService = function() {
         $.ajax({
             url: '/api/v1/user/restart/service',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
                 "action":"restart",
-                "services":[userMqttService.Mqtt]
+                "services":[userZigbee.ZigbeeService]
             }),
             success: function(data) {
                 let dt = JSON.parse(data)
+
                 if(dt[0].Success){
-                    alert("Restart mqtt service successfully")
+                    alert("Restart zigbee service successfully")
                 }else {
-                    alert("fail to restart mqtt service, please try again")
+                    alert("fail to restart zigbee service, please try again")
                 }
             },
             error: function() {
-                alert("fail to restart mqtt service, please try again")
+                alert("fail to restart zigbee service, please try again")
             }
         })
     }
 
-    return userMqttService
+    return userZigbee
 })()

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/userDevService.css" rel="stylesheet">
+    <link href="/css/userDeviceService.css" rel="stylesheet">
 </head>
 <body>
     <div class="main ">
@@ -23,12 +23,16 @@
 
         <div class="form-group">
             <label for="">Update LastConnected:</label>
-            <div>
-                <input type="radio" name="lastconnected" id="" value="false" checked> False
-                <input type="radio" name="lastconnected" id="" value="true"> True
-            </div>
+            <select id="update-last-connected">
+               <option value="true">true</option>
+               <option value="false">false</option>
+            </select>
+        </div>
+        <div class="btn-device">
+            <input type="button" value="Update Config" onclick="orgEdgexFoundry.userZigbeeService.putConfig()">
+            <input type="button" value="Restart Service" onclick="orgEdgexFoundry.userZigbeeService.restartService()">
         </div>
     </div>
 </body>
-<script src="/js/userDevService.js"></script>
+<script src="/js/userDeviceService.js"></script>
 </html>

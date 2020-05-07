@@ -4,6 +4,7 @@ import (
 	internal "Edgex-Ui-Go/internal"
 	"Edgex-Ui-Go/internal/configs"
 	"Edgex-Ui-Go/internal/core"
+	"Edgex-Ui-Go/internal/helper"
 	"Edgex-Ui-Go/internal/pkg/usage"
 	"Edgex-Ui-Go/internal/userMemory"
 	"flag"
@@ -26,6 +27,8 @@ func main() {
 		log.Printf("Load config failed. Error:%v\n", err)
 		return
 	}
+
+	helper.LoadServiceUri()
 
 	r := internal.InitRestRoutes()
 	userMemory.SetUserPassword()

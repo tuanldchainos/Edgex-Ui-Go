@@ -26,5 +26,9 @@ func InitRestRoutes() http.Handler {
 	r.HandleFunc("/api/v1/dev/config/coreservice/{coreservice}", handler.PutCoreServiceConfig).Methods(http.MethodPost)
 	r.HandleFunc("/api/v1/dev/config/devservice/{devservice}", handler.PutDevServiceConfig).Methods(http.MethodPost)
 
+	r.HandleFunc("/api/v1/user/config/devservice/{devservice}", handler.PutDevServiceConfig).Methods(http.MethodPost)
+	r.HandleFunc("/api/v1/user/config/appservice/{appservice}", handler.PutAppServiceConfig).Methods(http.MethodPost)
+	r.HandleFunc("/api/v1/user/restart/service", handler.RestartService).Methods(http.MethodPost)
+
 	return r
 }

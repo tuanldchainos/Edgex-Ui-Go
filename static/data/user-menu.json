@@ -5,17 +5,17 @@
         "status":true
     },
     {
-        "title":"DevService",
+        "title":"ZigbeeService",
         "url":"/pages/userDeviceService.html",
         "status":false
     },
     {
-        "title":"AppService",
+        "title":"MqttConnect",
         "url":"/pages/userMqttService.html",
         "status":false
     },
     {
-        "title":"Export",
+        "title":"AppService",
         "url":"/pages/userExportService.html",
         "status":false
     }

@@ -32,8 +32,8 @@ func InitRegistryClientByServiceKey(serviceKey string, needVersionPath bool, Ste
 	return client, nil
 }
 
-func GetServiceURLviaRegistry(client registry.Client, serviceName string) (string, error) {
-	endpoint, err := client.GetServiceEndpoint(serviceName)
+func GetServiceURLviaRegistry(client registry.Client, serviceKey string) (string, error) {
+	endpoint, err := client.GetServiceEndpoint(serviceKey)
 	if err != nil {
 		return "", err
 	}
