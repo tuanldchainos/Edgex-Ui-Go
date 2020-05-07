@@ -17,21 +17,31 @@ orgEdgexFoundry.userZigbeeService = (function(){
     var userZigbee = new UserZigbeeService()
 
 
-    // UserZigbeeService.prototype.putConfig = function() {
-        
-    //     $.ajax({
-    //         url: '/api/v1/user/config/devservice/' + userZigbee.ZigbeeService,
-    //         type: 'POST',
-    //         contentType: 'application/json',
-    //         data: ,
-    //         success: function(data) {
-    //             alert(data)
-    //         },
-    //         error: function() {
-    //             alert("faile to update service config, please try again")
-    //         }
-    //     })
-    // }
+    UserZigbeeService.prototype.putConfig = function() {
+        var Network_RequestTimeout = document.getElementById("request-timeout").value
+        var Network_ResponseTimeout = document.getElementById("response-timeout").value
+        var UpdateLastConnected = document.getElementById("update-last-connected").value
+        $.ajax({
+            url: '/api/v1/user/config/devservice/' + userZigbee.ZigbeeService,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "Device": {
+                    "UpdateLastConnected": UpdateLastConnected
+                },
+                "Driver": {
+                    "Network_RequestTimeout": Network_RequestTimeout,
+                    " Network_ResponseTimeout": Network_ResponseTimeout
+                }
+            }),
+            success: function(data) {
+                alert(data)
+            },
+            error: function() {
+                alert("faile to update service config, please try again")
+            }
+        })
+    }
 
     UserZigbeeService.prototype.restartService = function() {
         $.ajax({
