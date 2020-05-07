@@ -45,10 +45,7 @@
 }
 
 .config-container button {
-    background-color: #4CAF50; /* Green */
-    border: 1px solid #4CAF50;
     border-radius: 10px;
-    color: white;
     padding: 16px 32px;
     text-align: center;
     text-decoration: none;
