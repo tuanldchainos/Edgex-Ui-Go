@@ -1,7 +1,6 @@
 ARG BASE=golang:1.13-alpine
 FROM ${BASE} AS builder
 
-ARG MAKE="make /Edgex-Ui-Go"
 ARG ALPINE_PKG_BASE="make git"
 ARG ALPINE_PKG_EXTRA=""
 
@@ -31,7 +30,7 @@ FROM alpine
 
 EXPOSE 3000
 
-COPY --from=builder /Edgex-Ui-Go/Edgex-Ui-Go /Edgex-Ui-Go
+COPY --from=builder /Edgex-Ui-Go /Edgex-Ui-Go
 
 
-ENTRYPOINT ["./Edgex-Ui-Go","-conf=res/docker/configuration.toml"]
+ENTRYPOINT ["/Edgex-Ui-Go","-conf=res/docker/configuration.toml"]
