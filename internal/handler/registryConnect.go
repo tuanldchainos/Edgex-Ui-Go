@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"Edgex-Ui-Go/internal/configs"
 	"fmt"
+
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
 
 	"github.com/edgexfoundry/go-mod-registry/pkg/types"
 	"github.com/edgexfoundry/go-mod-registry/registry"

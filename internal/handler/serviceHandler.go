@@ -1,14 +1,15 @@
 package handler
 
 import (
-	"Edgex-Ui-Go/internal/configs"
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
-	"Edgex-Ui-Go/internal/core"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
+
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
 
 	"github.com/edgexfoundry/go-mod-core-contracts/clients"
 	"github.com/pelletier/go-toml"
@@ -154,10 +155,12 @@ func PutDevServiceConfig(w http.ResponseWriter, r *http.Request) {
 func RestartService(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	ctx := context.Background()
-	// agentClient, _ := InitRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true, core.ConfigCoreRegistryStem)
-	// agentUri, _ := GetServiceURLviaRegistry(agentClient, core.SystemManagementAgentServiceKey)
-	//agentURL := agentUri + "/api/v1/operation"
-	agentURL := "http://localhost:48090/api/v1/operation"
+
+	agentClient, _ := InitRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true, core.ConfigCoreRegistryStem)
+	agentURI, _ := GetServiceURLviaRegistry(agentClient, core.SystemManagementAgentServiceKey)
+	agentURL := agentURI + "/api/v1/operation"
+
+	// agentURL := "http://localhost:48090/api/v1/operation"
 
 	configuration := make(map[string]interface{})
 	_ = json.NewDecoder(r.Body).Decode(&configuration)

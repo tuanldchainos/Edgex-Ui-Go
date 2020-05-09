@@ -1,17 +1,18 @@
 package main
 
 import (
-	internal "Edgex-Ui-Go/internal"
-	"Edgex-Ui-Go/internal/configs"
-	"Edgex-Ui-Go/internal/core"
-	"Edgex-Ui-Go/internal/helper"
-	"Edgex-Ui-Go/internal/pkg/usage"
-	"Edgex-Ui-Go/internal/userMemory"
 	"flag"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	internal "githup.com/tuanldchainos/Edgex-Ui-Go/internal"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/helper"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/pkg/usage"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/userMemory"
 )
 
 func main() {

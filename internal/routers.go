@@ -1,9 +1,10 @@
 package internal
 
 import (
-	"Edgex-Ui-Go/internal/core"
-	"Edgex-Ui-Go/internal/handler"
 	"net/http"
+
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/handler"
 
 	"github.com/gorilla/mux"
 )

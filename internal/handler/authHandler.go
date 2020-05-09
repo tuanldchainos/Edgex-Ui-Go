@@ -1,14 +1,15 @@
 package handler
 
 import (
-	"Edgex-Ui-Go/internal/core"
-	"Edgex-Ui-Go/internal/domain"
-	"Edgex-Ui-Go/internal/userMemory"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/domain"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/userMemory"
 )
 
 func DevHomepageHandler(w http.ResponseWriter, r *http.Request) {

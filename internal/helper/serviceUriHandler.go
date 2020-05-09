@@ -1,11 +1,12 @@
 package helper
 
 import (
-	"Edgex-Ui-Go/internal/configs"
-	"Edgex-Ui-Go/internal/core"
-	"Edgex-Ui-Go/internal/handler"
 	"sync"
 	"time"
+
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/handler"
 )
 
 var (

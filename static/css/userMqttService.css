@@ -40,8 +40,8 @@
     width: 100%;
     height: 300px;
     overflow: scroll;
-    background-color:greenyellow;
-    color: black;
+    background-color:rgb(128, 128, 128);
+    color: white;
 }
 
 .config-container button {

@@ -1,4 +1,4 @@
-module Edgex-Ui-Go
+module githup.com/tuanldchainos/Edgex-Ui-Go
 
 go 1.14
 

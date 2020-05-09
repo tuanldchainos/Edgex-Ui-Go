@@ -1,7 +1,7 @@
 package userMemory
 
 import (
-	"Edgex-Ui-Go/internal/core"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
 )
 
 var BasicUser User

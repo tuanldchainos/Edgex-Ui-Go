@@ -1,9 +1,10 @@
 package core
 
 import (
-	"Edgex-Ui-Go/internal/configs"
 	"net/http"
 	"strings"
+
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
 
 	"github.com/gorilla/sessions"
 )
