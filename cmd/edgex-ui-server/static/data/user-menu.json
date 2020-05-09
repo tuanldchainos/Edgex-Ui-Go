@@ -1,0 +1,23 @@
+[
+    {
+        "title":"General",
+        "url":"/pages/userGeneral.html",
+        "status":true
+    },
+    {
+        "title":"ZigbeeService",
+        "url":"/pages/userDeviceService.html",
+        "status":false
+    },
+    {
+        "title":"MqttConnect",
+        "url":"/pages/userMqttService.html",
+        "status":false
+    },
+    {
+        "title":"AppService",
+        "url":"/pages/userAppService.html",
+        "status":false
+    }
+    
+]

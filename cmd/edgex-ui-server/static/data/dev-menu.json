@@ -1,0 +1,27 @@
+[
+    {
+        "title":"General",
+        "url":"/pages/devGeneral.html",
+        "status":true
+    },
+    {
+        "title":"Logging",
+        "url":"/pages/devLogging.html",
+        "status":false
+    },
+    {
+        "title":"CoreService",
+        "url":"/pages/devCoreService.html",
+        "status":false
+    },
+    {
+        "title":"DevService",
+        "url":"/pages/devDeviceService.html",
+        "status":false
+    },
+    {
+        "title":"AppService",
+        "url":"/pages/devAppService.html",
+        "status":false
+    }
+]

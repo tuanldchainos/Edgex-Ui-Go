@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/userDeviceService.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main ">
+        <div class="form-group">
+            <label for="">Request Timeout:</label>
+            <div>
+                <input type="text" id="request-timeout" style="text-align: center;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Response Timeout:</label>
+            <div>
+                <input type="text" id="response-timeout" style="text-align: center;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Update LastConnected:</label>
+            <select id="update-last-connected">
+               <option value="true">true</option>
+               <option value="false">false</option>
+            </select>
+        </div>
+        <div class="btn-device">
+            <input type="button" value="Update Config" onclick="orgEdgexFoundry.userZigbeeService.putConfig()">
+            <input type="button" value="Restart Service" onclick="orgEdgexFoundry.userZigbeeService.restartService()">
+        </div>
+    </div>
+</body>
+<script src="/js/userDeviceService.js"></script>
+</html>

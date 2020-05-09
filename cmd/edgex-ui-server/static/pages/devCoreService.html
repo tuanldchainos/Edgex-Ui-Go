@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/devCoreService.css" rel="stylesheet">
+</head>
+<body>
+    <div class=service-option>
+        <div class="service-label">Core Service</div>
+        <div class="select-box">
+            <select id="select-bar"></select>
+        </div>
+        <input id="get-service-config" type="button" value="Get config" onclick="orgEdgexFoundry.coreService.getConfig()">
+        <input id="put-service-config" type="button" value="Update config" onclick="orgEdgexFoundry.coreService.putConfig()">
+        <input id="restart-core-service" type="button" value="Restart service" onclick="orgEdgexFoundry.coreService.restartService()">
+    </div>
+    <div class="content">
+        <textarea id="config-content"></textarea>
+    </div>
+</body>
+<script src="/js/devCoreService.js"></script>
+</html>

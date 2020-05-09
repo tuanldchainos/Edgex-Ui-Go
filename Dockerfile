@@ -1,6 +1,7 @@
 ARG BASE=golang:1.13-alpine
 FROM ${BASE} AS builder
 
+ARG MAKE="make cmd/edgex-ui-server/edgex-ui-server"
 ARG ALPINE_PKG_BASE="make git"
 ARG ALPINE_PKG_EXTRA=""
 
@@ -15,7 +16,7 @@ RUN sed -e 's/dl-cdn[.]alpinelinux.org/nl.alpinelinux.org/g' -i~ /etc/apk/reposi
 RUN apk update && apk add --no-cache ${ALPINE_PKG_BASE} ${ALPINE_PKG_EXTRA}
 
 ENV GO111MODULE=on
-WORKDIR /Edgex-Ui-Go
+WORKDIR /go/src/github.com/tuanldchainos/Edgex-Ui-Go
 
 
 COPY go.mod .
@@ -30,7 +31,8 @@ FROM alpine
 
 EXPOSE 3000
 
-COPY --from=builder /Edgex-Ui-Go /Edgex-Ui-Go
+COPY --from=builder /go/src/github.com/tuanldchainos/Edgex-Ui-Go/cmd/edgex-ui-server /go/src/github.com/tuanldchainos/Edgex-Ui-Go/cmd/edgex-ui-server
 
+WORKDIR /go/src/github.com/tuanldchainos/Edgex-Ui-Go/cmd/edgex-ui-server
 
-ENTRYPOINT ["/Edgex-Ui-Go","-conf=res/docker/configuration.toml"]
+ENTRYPOINT ["./edgex-ui-server","-conf=res/docker/configuration.toml"]
