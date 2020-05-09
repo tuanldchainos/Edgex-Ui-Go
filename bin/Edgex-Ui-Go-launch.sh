@@ -7,7 +7,7 @@
 #
 
 DIR=$PWD
-CMD=Edgex-Ui-Go
+CMD=../
 
 # Kill all edgex-ui-go* stuff
 function cleanup {
