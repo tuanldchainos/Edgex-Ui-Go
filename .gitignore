@@ -1,0 +1,11 @@
+.idea/
+vendor
+*.exe
+go.sum
+*.DS_Store
+Edgex-Ui-Go
+*.snap
+prime/
+squashfs-root/
+coverage.out
+VERSION
