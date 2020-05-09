@@ -9,10 +9,10 @@
 GO=CGO_ENABLED=0 GO111MODULE=on go
 GOCGO=CGO_ENABLED=1 GO111MODULE=on go
 
-MICROSERVICES=/Edgex-Ui-Go
+MICROSERVICES= Edgex-Ui-Go
 .PHONY: $(MICROSERVICES)
 
-DOCKERS=docker_Edgex_Ui_Go
+DOCKERS=docker_edgex_ui_go
 .PHONY: $(DOCKERS)
 
 VERSION=$(shell cat ./VERSION 2>/dev/null || echo 0.0.0)
@@ -24,8 +24,8 @@ GIT_SHA=$(shell git rev-parse HEAD)
 build: $(MICROSERVICES)
 	$(GO) build ./...
 
-cmd/edgex-ui-server/edgex-ui-server:
-	$(GO) build $(GOFLAGS) -o $@ ./Edgex-Ui-Go
+Edgex-Ui-Go:
+	$(GO) build $(GOFLAGS) -o $@ ./
 
 clean:
 	rm -f $(MICROSERVICES)
@@ -45,4 +45,4 @@ run:
 docker: $(DOCKERS)
 
 docker_edgex_ui_go:
-	docker build --label "git_sha=$(GIT_SHA)" -t tuanldchainos/docker-Edgex-Ui-Go:$(VERSION) .
+	docker build --label "git_sha=$(GIT_SHA)" -t tuanldchainos/docker_edgex_ui_go:$(VERSION) .
