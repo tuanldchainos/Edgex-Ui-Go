@@ -1,38 +1,48 @@
-ARG BASE=golang:1.13-alpine
-FROM ${BASE} AS builder
+#
+# Copyright (c) 2018 Tencent
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
-ARG MAKE="make /Edgex-Ui-Go"
-ARG ALPINE_PKG_BASE="make git"
-ARG ALPINE_PKG_EXTRA=""
+.PHONY: build clean test run docker
 
-LABEL Name=Edgex-Ui-Go
+GO=CGO_ENABLED=0 GO111MODULE=on go
+GOCGO=CGO_ENABLED=1 GO111MODULE=on go
 
-LABEL license='SPDX-License-Identifier: Apache-2.0' \
-  copyright='Copyright (c) 2018-2020: Intel'
+MICROSERVICES= Edgex-Ui-Go
+.PHONY: $(MICROSERVICES)
 
+DOCKERS=docker_edgex_ui_go
+.PHONY: $(DOCKERS)
 
-RUN sed -e 's/dl-cdn[.]alpinelinux.org/nl.alpinelinux.org/g' -i~ /etc/apk/repositories
+VERSION=$(shell cat ./VERSION 2>/dev/null || echo 0.0.0)
 
-RUN apk update && apk add --no-cache ${ALPINE_PKG_BASE} ${ALPINE_PKG_EXTRA}
+GOFLAGS=-ldflags "-X github.com/tuanldchainos/Edgex-Ui-Go.Version=$(VERSION)"
 
-ENV GO111MODULE=on
-WORKDIR /go/src/github.com/tuanldchainos/Edgex-Ui-Go
+GIT_SHA=$(shell git rev-parse HEAD)
 
+build: $(MICROSERVICES)
+	$(GO) build ./...
 
-COPY go.mod .
-COPY Makefile .
+Edgex-Ui-Go:
+	$(GO) build $(GOFLAGS) -o $@ ./
 
-RUN make update
+clean:
+	rm -f $(MICROSERVICES)
 
-COPY . .
-RUN ${MAKE}
+test:
+	GO111MODULE=on go test -coverprofile=coverage.out ./...
+	GO111MODULE=on go vet ./...
 
-FROM alpine
+prepare:
 
-EXPOSE 4000
+update:
+	$(GO) mod download
 
-COPY --from=builder /go/src/github.com/tuanldchainos/Edgex-Ui-Go /go/src/github.com/edgexfoundry/Edgex-Ui-Go
+run:
+	cd bin && ./Edgex-Ui-Go-launch.sh
 
-WORKDIR /go/src/github.com/tuanldchainos/Edgex-Ui-Go
+docker: $(DOCKERS)
 
-ENTRYPOINT ["./Edgex-Ui-Go","-conf=res/docker/configuration.toml"]
+docker_edgex_ui_go:
+	docker build --label "git_sha=$(GIT_SHA)" -t tuanldchainos/docker_edgex_ui_go:$(VERSION) .
