@@ -1,7 +1,7 @@
 ARG BASE=golang:1.13-alpine
 FROM ${BASE} AS builder
 
-ARG MAKE="make /Edgex-Ui-Go"
+ARG MAKE="make build"
 ARG ALPINE_PKG_BASE="make git"
 ARG ALPINE_PKG_EXTRA=""
 
@@ -29,9 +29,9 @@ RUN ${MAKE}
 
 FROM alpine
 
-EXPOSE 4000
+EXPOSE 3000
 
-COPY --from=builder /go/src/github.com/tuanldchainos/Edgex-Ui-Go /go/src/github.com/edgexfoundry/Edgex-Ui-Go
+COPY --from=builder /go/src/github.com/tuanldchainos/Edgex-Ui-Go /go/src/github.com/tuanldchainos/Edgex-Ui-Go
 
 WORKDIR /go/src/github.com/tuanldchainos/Edgex-Ui-Go
 
