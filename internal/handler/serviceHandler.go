@@ -159,6 +159,7 @@ func RestartService(w http.ResponseWriter, r *http.Request) {
 	agentClient, _ := InitRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true, core.ConfigCoreRegistryStem)
 	agentURI, _ := GetServiceURLviaRegistry(agentClient, core.SystemManagementAgentServiceKey)
 	agentURL := agentURI + "/api/v1/operation"
+	fmt.Println(agentURL)
 
 	// agentURL := "http://localhost:48090/api/v1/operation"
 

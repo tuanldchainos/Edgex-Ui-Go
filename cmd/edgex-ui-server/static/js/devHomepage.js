@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+	debugger
 	$.ajaxSetup({
 		cache: false,
 		headers: { "X-Session-Token": window.sessionStorage.getItem("X_Session_Token") },
@@ -51,7 +51,7 @@ $(document).ready(function () {
             str = '<div class="tab-pane fade" id="' + title + '" role="tabpanel" aria-labelledby="' + title + '-tab"></div>'
         }
 		$('#content').append(str)
-        $('#content #' + title).load(url)
+        $('#content #' + title).on("load", url)
 	}
 
 })

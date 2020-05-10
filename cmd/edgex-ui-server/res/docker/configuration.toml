@@ -12,27 +12,27 @@ SystemAgentHost     = "edgex-sys-mgmt-agent"
 
 CoreDataPath     = "/edgex-core-data"
 CoreDataPort     = "48080"
-CoreDataHost     = "localhost"
+CoreDataHost     = "edgex-core-data"
 
 CoreMetadataPath = "/edgex-core-metadata"
 CoreMetadataPort = "48081"
-CoreMetadataHost = "localhost"
+CoreMetadataHost = "edgex-core-metadata"
 
 CoreCommandPath  = "/edgex-core-command"
 CoreCommandPort  = "48082"
-CoreCommandHost  = "localhost"
+CoreCommandHost  = "edgex-core-command"
 
 SupportLoggingPath   = "/edgex-support-logging"
 SupportLoggingPort   = "48061"
-SupportLoggingHost   = "localhost"
+SupportLoggingHost   = "edgex-support-logging"
 
 SupportNotificationPath   = "/edgex-support-notifications"
 SupportNotificationPort   = "48060"
-SupportNotificationHost   = "localhost"
+SupportNotificationHost   = "edgex-support-notifications"
 
 SupportSchedulerPath   = "/edgex-support-scheduler"
 SupportSchedulerPort   = "48085"
-SupportSchedulerHost   = "localhost"
+SupportSchedulerHost   = "edgex-support-scheduler"
 
 [Registry]
 Host = "edgex-core-consul"

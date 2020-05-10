@@ -10,7 +10,6 @@ import (
 	internal "githup.com/tuanldchainos/Edgex-Ui-Go/internal"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
-	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/helper"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/pkg/usage"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/userMemory"
 )
@@ -29,7 +28,7 @@ func main() {
 		return
 	}
 
-	helper.LoadServiceUri()
+	// go helper.LoadServiceUri()
 
 	r := internal.InitRestRoutes()
 	userMemory.SetUserPassword()
