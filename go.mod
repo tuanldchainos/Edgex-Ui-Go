@@ -6,14 +6,15 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/edgexfoundry/go-mod-core-contracts v0.1.57
 	github.com/edgexfoundry/go-mod-registry v0.1.11
-	github.com/golang/protobuf v1.4.0 // indirect
+	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/sessions v1.2.0
+	github.com/hashicorp/golang-lru v0.5.1 // indirect
+	github.com/kr/pretty v0.1.0 // indirect
 	github.com/pelletier/go-toml v1.2.0
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
-	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
-	k8s.io/api v0.18.2 // indirect
-	k8s.io/apimachinery v0.18.2
-	k8s.io/client-go v11.0.0+incompatible
-	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
+	github.com/stretchr/testify v1.4.0 // indirect
+	golang.org/x/net v0.0.0-20191004110552-13f9640d40b9 // indirect
+	golang.org/x/sys v0.0.0-20191022100944-742c48ecaeb7 // indirect
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
+	gopkg.in/yaml.v2 v2.2.8 // indirect
 )

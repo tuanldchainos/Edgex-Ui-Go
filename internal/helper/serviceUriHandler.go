@@ -19,6 +19,7 @@ var (
 )
 
 var wg sync.WaitGroup
+var mux sync.Mutex
 
 func LoadServiceUri() {
 	setServiceUri()
@@ -37,7 +38,7 @@ func setServiceUri() {
 
 func updateServiceUri() {
 	for i := 0; ; i++ {
-		time.Sleep(500 * time.Second)
+		time.Sleep(30 * time.Second)
 
 		coreDataClient, _ := registrySupport.InitRegistryClientByServiceKey(CoreDataServiceKey, true, ConfigCoreRegistryStem)
 		CoreDataUri, _ = registrySupport.GetServiceURLviaRegistry(coreDataClient, CoreDataServiceKey)
