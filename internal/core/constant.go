@@ -27,6 +27,7 @@ const (
 	JsonContentType  = "application/json"
 	RedirectHttpCode = 302
 	SessionTokenKey  = "X-Session-Token"
+	HttpProtocol     = "http"
 
 	AjaxRequestIdentifier = "XMLHttpRequest"
 	AjaxRequestHeader     = "X-Requested-With"
@@ -38,10 +39,6 @@ const (
 	DataPathPrefix = "/data"
 	VendorsPath    = "/vendors"
 
-	HttpProtocol           = "http"
-	OriginHostReqHeader    = "X-Origin-Host"
-	ForwardedHostReqHeader = "X-Forwarded-Host"
-
 	NoAuthorizationMsg     = "no authorization."
 	ConfigAppRegistryStem  = "edgex/appservices/"
 	ConfigDevRegistryStem  = "edgex/core/"
@@ -52,9 +49,6 @@ const (
 const (
 	DevelopName = "develop"
 	DevelopPass = "develop"
-
-	UserName = "user"
-	UserPass = "user"
 )
 
 // session info

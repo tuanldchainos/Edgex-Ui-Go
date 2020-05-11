@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/registrySupport"
 
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
 
@@ -19,7 +20,7 @@ import (
 
 func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 	configuration := make(map[string]interface{})
-	client, err := InitRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false, core.ConfigAppRegistryStem)
+	client, err := registrySupport.InitRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false, core.ConfigAppRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -59,7 +60,7 @@ func PutCoreServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := InitRegistryClientByServiceKey(coreservice, true, core.ConfigCoreRegistryStem)
+	client, err := registrySupport.InitRegistryClientByServiceKey(coreservice, true, core.ConfigCoreRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -94,7 +95,7 @@ func PutAppServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := InitRegistryClientByServiceKey(appserviceKey, true, core.ConfigAppRegistryStem)
+	client, err := registrySupport.InitRegistryClientByServiceKey(appserviceKey, true, core.ConfigAppRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -129,7 +130,7 @@ func PutDevServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := InitRegistryClientByServiceKey(devservice, true, core.ConfigDevRegistryStem)
+	client, err := registrySupport.InitRegistryClientByServiceKey(devservice, true, core.ConfigDevRegistryStem)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -156,8 +157,8 @@ func RestartService(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	ctx := context.Background()
 
-	agentClient, _ := InitRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true, core.ConfigCoreRegistryStem)
-	agentURI, _ := GetServiceURLviaRegistry(agentClient, core.SystemManagementAgentServiceKey)
+	agentClient, _ := registrySupport.InitRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true, core.ConfigCoreRegistryStem)
+	agentURI, _ := registrySupport.GetServiceURLviaRegistry(agentClient, core.SystemManagementAgentServiceKey)
 	agentURL := agentURI + "/api/v1/operation"
 	fmt.Println(agentURL)
 

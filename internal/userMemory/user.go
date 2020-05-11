@@ -1,7 +1,8 @@
 package userMemory
 
-import (
-	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
+const (
+	UserName = "user"
+	UserPass = "user"
 )
 
 var BasicUser User
@@ -13,14 +14,14 @@ type User struct {
 
 func SetUserPassword() {
 	BasicUser = User{
-		Name: core.UserName,
-		Pass: core.UserPass,
+		Name: UserName,
+		Pass: UserPass,
 	}
 }
 
 func UpdateUserPass(pass string) {
 	BasicUser = User{
-		Name: core.UserName,
+		Name: UserName,
 		Pass: pass,
 	}
 }

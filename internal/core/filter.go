@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/proxy"
 
 	"github.com/gorilla/sessions"
 )
@@ -63,7 +64,7 @@ func AuthFilter(h http.Handler) http.Handler {
 			for prefix := range configs.ProxyMapping {
 				if strings.HasPrefix(path, prefix) {
 					path = strings.TrimPrefix(path, prefix)
-					ProxyHandler(w, r, path, prefix)
+					proxy.ProxyHandler(w, r, path, prefix)
 					return
 				}
 			}
