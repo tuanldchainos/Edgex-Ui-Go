@@ -24,24 +24,28 @@ $(document).ready(function () {
 	$.ajax({
 		url: "/data/dev-menu.json",
 		type: "GET",
+		dataType: "json",
 		success: function (data) {
 			menuRender(data);
 		}
 	})
 
 	function menuRender(data) {
-		for(var i=0; i < data.length; i++) {
+		debugger
+		for(var i = 0; i < data.length; i++) {
 			var menu = data[i];
+			console.log(menu)
             var str
             if(menu.status==true){
-               str = '<li class="nav-item">' + '<a class="nav-link active" id="' + menu.title +'-tab" data-toggle="tab" href="#' +menu.title+ '" role="tab" aria-controls="'+ menu.title +'" aria-selected="'+ menu.status+'">' + menu.title + '</li>'
+               str = '<li class="nav-item">' + '<a href="#'+ menu.title + '" class="nav-link active" id="' + menu.title +'-tab" data-toggle="tab" role="tab" aria-controls="'+ menu.title +'" aria-selected="'+ menu.status+'">' + menu.title + '</li>'
             }else {
-                str = '<li class="nav-item">' + '<a class="nav-link" id="' + menu.title +'-tab" data-toggle="tab" href="#' +menu.title+ '" role="tab" aria-controls="'+ menu.title +'" aria-selected="'+ menu.status+'">' + menu.title + '</li>'
+				str = '<li class="nav-item">' + '<a href="#'+ menu.title + '" class="nav-link" id="' + menu.title +'-tab" data-toggle="tab" role="tab" aria-controls="'+ menu.title +'" aria-selected="'+ menu.status+'">' + menu.title + '</li>'
             }
 			$('#menutab').append(str)
 			createTabByTitle(menu.title, menu.url, menu.status)
 		}
 	}
+
 
 	function createTabByTitle(title, url, status) {
         var str
@@ -51,7 +55,7 @@ $(document).ready(function () {
             str = '<div class="tab-pane fade" id="' + title + '" role="tabpanel" aria-labelledby="' + title + '-tab"></div>'
         }
 		$('#content').append(str)
-        $('#content #' + title).on("load", url)
+		console.log(url)
+		$('#content #' + title).load(url, null, null)
 	}
-
 })

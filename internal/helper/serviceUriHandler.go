@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"fmt"
 	"sync"
 	"time"
 
@@ -24,7 +23,7 @@ var wg sync.WaitGroup
 
 func LoadServiceUri() {
 	setServiceUri()
-	updateServiceUri()
+	go updateServiceUri()
 }
 
 func setServiceUri() {
@@ -39,7 +38,7 @@ func setServiceUri() {
 
 func updateServiceUri() {
 	for i := 0; ; i++ {
-		time.Sleep(10 * time.Second)
+		time.Sleep(500 * time.Second)
 
 		coreDataClient, _ := handler.InitRegistryClientByServiceKey(core.CoreDataServiceKey, true, core.ConfigCoreRegistryStem)
 		CoreDataUri, _ = handler.GetServiceURLviaRegistry(coreDataClient, core.CoreDataServiceKey)
@@ -61,8 +60,5 @@ func updateServiceUri() {
 
 		agentClient, _ := handler.InitRegistryClientByServiceKey(core.SystemManagementAgentServiceKey, true, core.ConfigCoreRegistryStem)
 		SystemAgentUri, _ = handler.GetServiceURLviaRegistry(agentClient, core.SystemManagementAgentServiceKey)
-
-		fmt.Println(CoreDataUri)
 	}
-
 }
