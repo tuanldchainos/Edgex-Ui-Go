@@ -87,7 +87,7 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     "action":"restart",
-                    "services":["edgex-" + devService]
+                    "services":[devService]
                 }),
                 success: function(data) {
                     if(data[0].Success){

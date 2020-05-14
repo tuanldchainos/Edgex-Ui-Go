@@ -58,4 +58,14 @@ $(document).ready(function () {
 		console.log(url)
 		$('#content #' + title).load(url, null, null)
 	}
+
+	window.addEventListener("unload", function(){
+		$.ajax({
+			url: '/api/v1/dev/logout',
+			type: 'GET',
+			success: function () {
+				window.location.href = '/api/v1/auth/login'
+			}
+		})
+	})
 })

@@ -38,11 +38,55 @@ function devInit() {
                 + '<button type="submit">Login</button>\n'
                 + '</div>\n'
                 + '</form>\n'
+                + '<button onclick="changeDevPassInit()">Change Password</button>\n'
                 + '</div>\n'
                 + '</div>\n'
                 + '<main>'
     htmlDevInner.innerHTML = devLoginContent
     htmlUserInner.innerHTML = null
+}
+
+
+
+function changeDevPassInit() {
+    let htmlUserInner = document.getElementById("userlogin")
+    let htmlDevInner = document.getElementById("devlogin")
+    let changeDevPassInitContent ='<main>' 
+                +'<div class="container">\n'
+                + '<div class="login-form">\n'
+                + '<form>\n'
+                + '<h1>Change password for dev</h1>\n'
+                + '<div class="input-box">\n'
+                + '<input type="password" placeholder="oldpass" id="oldpass">\n'
+                + '<input type="password" placeholder="newpass" id="newpass">\n'
+                + '</div>\n'
+                + '<div class="btn-box">\n'
+                + '</div>\n'
+                + '</form>\n'
+                + '<button onclick="updateDevPass()">Change</button>\n'
+                + '</div>\n'
+                + '</div>\n'
+                + '<main>'
+    htmlDevInner.innerHTML = changeDevPassInitContent
+    htmlUserInner.innerHTML = null
+}
+
+function updateDevPass() {
+    var oldpass = document.getElementById("oldpass").value
+    var newpass = document.getElementById("newpass").value
+    $.ajax({
+        url: '/api/v1/dev/change/pass',
+        type: 'POST',
+        contentType: 'application/json',
+        data:JSON.stringify({
+            "oldpass": oldpass,
+            "newpass": newpass
+        }),
+        success: function(data) {
+            alert(data)
+            window.location.href = "api/v1/auth/login";
+        }
+    })
 }
 
 function changeUserPassInit() {
@@ -85,4 +129,5 @@ function updateUserPass() {
         }
     })
 }
+
 

@@ -24,6 +24,7 @@ $(document).ready(function () {
 	$.ajax({
 		url: "/data/user-menu.json",
 		type: "GET",
+		dataType: "json",
 		success: function (data) {
 			menuRender(data);
 		}
@@ -53,5 +54,14 @@ $(document).ready(function () {
 		$('#content').append(str)
         $('#content #' + title).load(url)
 	}
-
+	
+	window.addEventListener("unload", function(){
+		$.ajax({
+			url: '/api/v1/user/logout',
+			type: 'GET',
+			success: function () {
+				window.location.href = '/api/v1/auth/login'
+			}
+		})
+	})
 })

@@ -41,6 +41,7 @@ func AuthFilter(h http.Handler) http.Handler {
 
 		if path == RootURIPath {
 			http.FileServer(http.Dir(configs.ServerConf.StaticResourcesPath)).ServeHTTP(w, r)
+			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
 			return
 		}
 
@@ -51,6 +52,11 @@ func AuthFilter(h http.Handler) http.Handler {
 		username := userSession.Values["username"]
 
 		if devname == nil && username == nil {
+			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
+			return
+		}
+
+		if username == nil && strings.HasPrefix(path, userPrefix) {
 			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
 			return
 		}

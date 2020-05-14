@@ -5,7 +5,7 @@ orgEdgexFoundry.userZigbeeService = (function(){
     "use strict";
 
     function UserZigbeeService(){
-        this.ZigbeeService = 'edgex-device-zigbee'
+        this.ZigbeeService = 'device-zigbee'
     }
 
     UserZigbeeService.prototype = {

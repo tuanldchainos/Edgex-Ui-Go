@@ -170,7 +170,7 @@ orgEdgexFoundry.userAppService = (function () {
             success:function(services){
                 appService.appServices = services;
                 $.each(services,function (key,value) {
-                    if(key != 'mqtt-app'){
+                    if(key != 'mqtt-proxy'){
                         $("#appservice_service_select").append("<option value="+key+">"+key+"</option>");
                     }
                 });
