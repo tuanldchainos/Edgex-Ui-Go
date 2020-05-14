@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -41,7 +40,6 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	userCre.Name = r.PostFormValue("username")
 	userCre.Password = r.PostFormValue("password")
-	fmt.Println(userMemory.BasicUser.Pass)
 	if userCre.Name != userMemory.BasicUser.Name || userCre.Password != userMemory.BasicUser.Pass {
 		log.Printf("User: %s login failed ", userCre.Name)
 		http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)

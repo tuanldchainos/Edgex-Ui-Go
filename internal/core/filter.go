@@ -41,7 +41,6 @@ func AuthFilter(h http.Handler) http.Handler {
 
 		if path == RootURIPath {
 			http.FileServer(http.Dir(configs.ServerConf.StaticResourcesPath)).ServeHTTP(w, r)
-			http.Redirect(w, r, LoginUriPath, RedirectHttpCode)
 			return
 		}
 
