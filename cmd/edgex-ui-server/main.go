@@ -11,8 +11,9 @@ import (
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/configs"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/helper"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/memory/developMemory"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/memory/userMemory"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/pkg/usage"
-	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/userMemory"
 )
 
 func main() {
@@ -33,6 +34,7 @@ func main() {
 
 	r := internal.InitRestRoutes()
 	userMemory.SetUserPassword()
+	developMemory.SetDevPassword()
 
 	server := &http.Server{
 		Handler:      core.GeneralFilter(r),

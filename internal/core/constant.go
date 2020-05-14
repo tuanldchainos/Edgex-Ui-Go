@@ -11,6 +11,7 @@ const (
 	DevHomepagePath = "/api/v1/dev/homepage"
 	DevLoginPath    = "/api/v1/dev/login"
 	DevLogoutPath   = "/api/v1/dev/logout"
+	DevChangePass   = "/api/v1/dev/change/pass"
 )
 
 // user api list
@@ -45,18 +46,13 @@ const (
 	ConfigCoreRegistryStem = "edgex/core/"
 )
 
-// user and dev login info
-const (
-	DevelopName = "develop"
-	DevelopPass = "develop"
-)
-
 // session info
 const (
 	DevSessionSecretKey  = "DevSession"
 	UserSessionSecretKey = "UserSession"
 
-	devPrefix = "/api/v1/dev/"
+	devPrefix  = "/api/v1/dev/"
+	userPrefix = "/api/v1/user/"
 )
 
 // Edgex service keyword

@@ -9,7 +9,8 @@ import (
 
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/core"
 	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/domain"
-	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/userMemory"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/memory/developMemory"
+	"githup.com/tuanldchainos/Edgex-Ui-Go/internal/memory/userMemory"
 )
 
 func DevHomepageHandler(w http.ResponseWriter, r *http.Request) {
@@ -80,7 +81,7 @@ func DevLoginHandler(w http.ResponseWriter, r *http.Request) {
 	devCre.Name = r.PostFormValue("username")
 	devCre.Password = r.PostFormValue("password")
 
-	if devCre.Name != core.DevelopName || devCre.Password != core.DevelopPass {
+	if devCre.Name != developMemory.BasicDevelop.Name || devCre.Password != developMemory.BasicDevelop.Pass {
 		log.Printf("User: %s login failed ", devCre.Name)
 		http.Redirect(w, r, core.LoginUriPath, core.RedirectHttpCode)
 	} else {
@@ -90,6 +91,24 @@ func DevLoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		log.Printf("User: %s login ", devCre.Name)
 		http.Redirect(w, r, core.DevHomepagePath, core.RedirectHttpCode)
+	}
+}
+
+func DevChangePassHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	var devUpdateData map[string]string
+	err := json.NewDecoder(r.Body).Decode(&devUpdateData)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	if devUpdateData["oldpass"] == developMemory.BasicDevelop.Pass {
+		developMemory.UpdateDevPass(devUpdateData["newpass"])
+		w.Write([]byte("update user password successfully"))
+	} else {
+		w.Write([]byte("password incorrect, please try again"))
 	}
 }
 
