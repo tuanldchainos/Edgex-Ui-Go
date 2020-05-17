@@ -5,13 +5,15 @@ orgEdgexFoundry.userMqtt = (function(){
     "use strict";
 
     function UserMqtt(){
-        this.Mqtt = 'mqtt-app'
+        this.Mqtt = 'mqtt-proxy'
     }
 
     UserMqtt.prototype = {
         constructor:UserMqtt,
         restartMqtt: null,
         connectMqtt: null,
+        getConfig: null,
+        renderConfig: null
     }
 
     var userMqttService = new UserMqtt()
@@ -19,7 +21,7 @@ orgEdgexFoundry.userMqtt = (function(){
     UserMqtt.prototype.connectMqtt = function() {
         var username = document.getElementById("client-name").value
         var password = document.getElementById("client-pass").value
-        var clientId = document.getElementById("client-pass").value
+        var clientId = document.getElementById("client-id").value
         var qos = document.getElementById("connect-qos").value
         var autoReconnect = document.getElementById("connect-arc").value
         var retained = document.getElementById("connect-retained").value
@@ -68,7 +70,6 @@ orgEdgexFoundry.userMqtt = (function(){
                 }
             }
         }
-        console.log(dataMqtt)
         $.ajax({
             url: '/api/v1/user/config/appservice/' + userMqttService.Mqtt,
             type: 'POST',
@@ -104,6 +105,41 @@ orgEdgexFoundry.userMqtt = (function(){
                 alert("fail to restart mqtt service, please try again")
             }
         })
+    }
+
+    UserMqtt.prototype.getConfig = function() {
+        $.ajax({
+            // url:'/edgex-sys-mgmt-agent' + '/api/v1/config/' + appService,
+            url:'/api/v1/user/appservice/list',
+            type:'GET',
+            success: function(data){
+                var dt = data[userMqttService.Mqtt]
+                userMqttService.renderConfig(dt)
+                alert("Get curent mqtt config successfully")
+            }
+        }) 
+    }
+
+    UserMqtt.prototype.renderConfig = function(dt) {
+        document.getElementById("client-name").value = dt.MessageBus.Optional.Username
+        document.getElementById("client-pass").value = dt.MessageBus.Optional.Password
+        document.getElementById("client-id").value = dt.MessageBus.Optional.Username
+        document.getElementById("connect-qos").value = dt.MessageBus.Optional.Qos
+        document.getElementById("connect-arc").value = dt.MessageBus.Optional.AutoReconnect
+        document.getElementById("connect-retained").value = dt.MessageBus.Optional.Retained
+        document.getElementById("connect-kal").value = dt.MessageBus.Optional.KeepAlive
+        document.getElementById("connect-ct").value = dt.MessageBus.Optional.ConnectTimeout
+        document.getElementById("sercure-scv").value = dt.MessageBus.Optional.SkipCertVerify
+        document.getElementById("sercure-key").value = dt.MessageBus.Optional.KeyPEMBlock
+        document.getElementById("sercure-cert").value = dt.MessageBus.Optional.CertPEMBlock
+        document.getElementById("publish-host").value = dt.MessageBus.PublishHost.Host
+        document.getElementById("publish-port").value = dt.MessageBus.PublishHost.Port
+        document.getElementById("publish-protocol").value = dt.MessageBus.PublishHost.Protocol
+        document.getElementById("subscribe-host").value = dt.MessageBus.PublishHost.Host
+        document.getElementById("subscribe-port").value = dt.MessageBus.PublishHost.Port
+        document.getElementById("subscribe-protocol").value = dt.MessageBus.PublishHost.Protocol
+        document.getElementById("topic-request").value = dt.Binding.SubscribeTopic
+        document.getElementById("topic-response").value = dt.Binding.PublishTopic
     }
 
     return userMqttService

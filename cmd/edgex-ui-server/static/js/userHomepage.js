@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+	debugger
 	$.ajaxSetup({
 		cache: false,
 		headers: { "X-Session-Token": window.sessionStorage.getItem("X_Session_Token") },

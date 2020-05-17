@@ -38,7 +38,7 @@ func setServiceUri() {
 
 func updateServiceUri() {
 	for i := 0; ; i++ {
-		time.Sleep(30 * time.Second)
+		time.Sleep(300 * time.Second)
 
 		coreDataClient, _ := registrySupport.InitRegistryClientByServiceKey(CoreDataServiceKey, true, ConfigCoreRegistryStem)
 		CoreDataUri, _ = registrySupport.GetServiceURLviaRegistry(coreDataClient, CoreDataServiceKey)
