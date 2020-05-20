@@ -22,7 +22,7 @@
                 <li>Qos: <select id="connect-qos">
                     <option value="0">0</option>
                     <option value="1">1</option>
-                    <option value="2">1</option>
+                    <option value="2">2</option>
                 </select></li>
                 <li>AutoReconnect: <select id="connect-arc">
                     <option value="true">true</option>
@@ -78,7 +78,7 @@
                 <li>Response Topic: <input type="text" id="topic-response"></textarea></li>
             </ul>
         </div>
-        <button onclick="orgEdgexFoundry.userMqtt.connectMqtt()">Connect Mqtt Cloud</button>
+        <button onclick="orgEdgexFoundry.userMqtt.connectMqtt()">Update Mqtt Config</button>
         <button onclick="orgEdgexFoundry.userMqtt.restartMqtt()">Restart Mqtt Service</button>
         <button onclick="orgEdgexFoundry.userMqtt.getConfig()">Get Current Config</button>
 
