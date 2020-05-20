@@ -327,9 +327,11 @@ orgEdgexFoundry.userAppService = (function () {
 
     UserAppService.prototype.loadAllDeviceAndValueDescriptor = function(){
         $.ajax({
-            url: '/edgex-core-metadata/api/v1/device',
+            url: '/api/v1/user/metadata/device',
             type: 'GET',
+            dataType:'json',
             success:function(devices){
+                console.log(devices)
                 appService.devicesCache = devices;
                 $.each(devices,function(index,device){
                     $.each(device.profile.deviceResources,function(index,resource){

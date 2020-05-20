@@ -33,6 +33,7 @@ func InitRestRoutes() http.Handler {
 	r.HandleFunc("/api/v1/user/config/appservice/{appservice}", handler.PutAppServiceConfig).Methods(http.MethodPost)
 	r.HandleFunc("/api/v1/user/restart/service", handler.RestartService).Methods(http.MethodPost)
 	r.HandleFunc("/api/v1/user/appservice/list", handler.ListAppServicesProfile).Methods(http.MethodGet)
+	r.HandleFunc("/api/v1/user/metadata/device", handler.GetMetadataDevice).Methods(http.MethodGet)
 
 	return r
 }

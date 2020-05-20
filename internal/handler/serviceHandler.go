@@ -170,3 +170,15 @@ func RestartService(w http.ResponseWriter, r *http.Request) {
 	res, _ := clients.PostJSONRequestWithURL(ctx, agentURL, &configuration)
 	w.Write([]byte(res))
 }
+
+func GetMetadataDevice(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	ctx := context.Background()
+	metaClient, _ := registrySupport.InitRegistryClientByServiceKey(core.CoreMetaDataServiceKey, true, core.ConfigCoreRegistryStem)
+	URI, _ := registrySupport.GetServiceURLviaRegistry(metaClient, core.CoreMetaDataServiceKey)
+	URL := URI + "/api/v1/device"
+	fmt.Println(URL)
+
+	res, _ := clients.GetRequestWithURL(ctx, URL)
+	w.Write(res)
+}
