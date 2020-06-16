@@ -8,6 +8,13 @@
 <body>
     <div class="main ">
         <div class="form-group">
+            <label for="">Network Type:</label>
+            <div>
+                <input type="text" id="network-type" style="text-align: center;">
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="">Request Timeout:</label>
             <div>
                 <input type="text" id="request-timeout" style="text-align: center;">
@@ -15,22 +22,23 @@
         </div>
 
         <div class="form-group">
-            <label for="">Response Timeout:</label>
+            <label for="">Command Response Timeout:</label>
             <div>
-                <input type="text" id="response-timeout" style="text-align: center;">
+                <input type="text" id="command-response-timeout" style="text-align: center;">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="">Update LastConnected:</label>
-            <select id="update-last-connected">
-               <option value="true">true</option>
-               <option value="false">false</option>
-            </select>
+            <label for="">Object Response Timeout:</label>
+            <div>
+                <input type="text" id="object-response-timeout" style="text-align: center;">
+            </div>
         </div>
+
         <div class="btn-device">
             <input type="button" value="Update Config" onclick="orgEdgexFoundry.userZigbeeService.putConfig()">
             <input type="button" value="Restart Service" onclick="orgEdgexFoundry.userZigbeeService.restartService()">
+            <input type="button" value="Get Config" onclick="orgEdgexFoundry.userZigbeeService.getConfig()">
         </div>
     </div>
 </body>
