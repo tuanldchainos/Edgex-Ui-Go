@@ -115,7 +115,7 @@ orgEdgexFoundry.userMqtt = (function(){
             success: function(data){
                 var dt = data[userMqttService.Mqtt]
                 userMqttService.renderConfig(dt)
-                alert("Get curent mqtt config successfully")
+                alert("Get current mqtt config successfully")
             }
         }) 
     }

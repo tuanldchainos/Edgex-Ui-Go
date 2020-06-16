@@ -42,7 +42,7 @@ const (
 
 	NoAuthorizationMsg     = "no authorization."
 	ConfigAppRegistryStem  = "edgex/appservices/"
-	ConfigDevRegistryStem  = "edgex/core/"
+	ConfigDevRegistryStem  = "edgex/devices/"
 	ConfigCoreRegistryStem = "edgex/core/"
 )
 
