@@ -171,13 +171,33 @@ func RestartService(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(res))
 }
 
+func GetDevServiceConfig(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	vars := mux.Vars(r)
+	devservice := vars["devservice"]
+	client, err := registrySupport.InitRegistryClientByServiceKey(devservice, true, core.ConfigDevRegistryStem)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	configuration := make(map[string]interface{})
+	configurationData, err := client.GetConfiguration(&configuration)
+	if err != nil {
+		log.Printf(err.Error())
+		http.Error(w, "InternalServerError", http.StatusInternalServerError)
+		return
+	}
+	data, err := json.Marshal(configurationData)
+	w.Write(data)
+}
+
 func GetMetadataDevice(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	ctx := context.Background()
 	metaClient, _ := registrySupport.InitRegistryClientByServiceKey(core.CoreMetaDataServiceKey, true, core.ConfigCoreRegistryStem)
 	URI, _ := registrySupport.GetServiceURLviaRegistry(metaClient, core.CoreMetaDataServiceKey)
 	URL := URI + "/api/v1/device"
-	fmt.Println(URL)
 
 	res, _ := clients.GetRequestWithURL(ctx, URL)
 	w.Write(res)
