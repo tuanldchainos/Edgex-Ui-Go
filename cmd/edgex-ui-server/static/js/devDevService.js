@@ -64,6 +64,9 @@ $(document).ready(function() {
         DevService.prototype.putConfig = function() {
             var devService = document.getElementById("device-service-select-bar").value;
             var dataPut = document.getElementById("device-service-config-content").value;
+            var dataTest = JSON.parse(dataPut)
+            delete dataTest.DeviceList
+            dataPut = JSON.stringify(dataTest)
             $.ajax({
                 url: '/api/v1/dev/config/devservice/' + devService,
                 type: 'POST',

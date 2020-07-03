@@ -122,7 +122,7 @@ func PutDevServiceConfig(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	vars := mux.Vars(r)
 	devservice := vars["devservice"]
-	configuration := make(map[string]interface{})
+	var configuration map[string]interface{}
 	err := json.NewDecoder(r.Body).Decode(&configuration)
 	if err != nil {
 		log.Printf(err.Error())
@@ -136,6 +136,8 @@ func PutDevServiceConfig(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
+	fmt.Println(configuration)
+
 	configurationTomlTree, err := toml.TreeFromMap(configuration)
 	if err != nil {
 		log.Printf(err.Error())
@@ -143,13 +145,14 @@ func PutDevServiceConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println()
+	fmt.Println(configurationTomlTree)
 	err = client.PutConfigurationToml(configurationTomlTree, true)
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
+
 	w.Write([]byte("update device service config successfully"))
 }
 
